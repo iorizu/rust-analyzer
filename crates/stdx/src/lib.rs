@@ -12,6 +12,7 @@ pub mod non_empty_vec;
 pub mod panic_context;
 pub mod process;
 pub mod rand;
+pub mod strip_indent;
 pub mod thread;
 pub mod variance;
 
