@@ -13,7 +13,6 @@ mod tests;
 use std::fmt;
 
 use rustc_hash::FxHashSet;
-
 use intern::{Symbol, sym};
 
 pub use cfg_expr::{CfgAtom, CfgExpr};
@@ -103,7 +102,7 @@ impl CfgOptions {
         })
     }
 
-    pub fn get_cfg_values<'a>(&'a self, cfg_key: &'a str) -> impl Iterator<Item = &'a Symbol> + 'a {
+    pub fn get_cfg_values(&self, cfg_key: &str) -> impl Iterator<Item = &Symbol> {
         self.enabled.iter().filter_map(move |it| match it {
             CfgAtom::KeyValue { key, value } if cfg_key == key.as_str() => Some(value),
             _ => None,

@@ -320,22 +320,21 @@ impl Analysis {
 
     pub fn parallel_prime_caches<F>(&self, num_worker_threads: usize, cb: F) -> Cancellable<()>
     where
-        F: Fn(ParallelPrimeCachesProgress) + Sync + std::panic::UnwindSafe,
+        F: Fn(ParallelPrimeCachesProgress) + Sync + UnwindSafe,
     {
         self.with_db(move |db| prime_caches::parallel_prime_caches(db, num_worker_threads, &cb))
     }
 
     /// Gets the text of the source file.
     pub fn file_text(&self, file_id: FileId) -> Cancellable<Arc<str>> {
-        self.with_db(|db| SourceDatabase::file_text(db, file_id).text(db).clone())
+        self.with_db(|db| db.file_text(file_id).text(db).clone())
     }
 
     /// Gets the syntax tree of the file.
     pub fn parse(&self, file_id: FileId) -> Cancellable<SourceFile> {
         // FIXME edition
         self.with_db(|db| {
-            let editioned_file_id_wrapper =
-                EditionedFileId::current_edition_guess_origin(&self.db, file_id);
+            let editioned_file_id_wrapper = EditionedFileId::current_edition_guess_origin(db, file_id);
 
             db.parse(editioned_file_id_wrapper).tree()
         })
@@ -425,7 +424,7 @@ impl Analysis {
     pub fn join_lines(&self, config: &JoinLinesConfig, frange: FileRange) -> Cancellable<TextEdit> {
         self.with_db(|db| {
             let editioned_file_id_wrapper =
-                EditionedFileId::current_edition_guess_origin(&self.db, frange.file_id);
+                EditionedFileId::current_edition_guess_origin(db, frange.file_id);
             let parse = db.parse(editioned_file_id_wrapper);
             join_lines::join_lines(config, &parse.tree(), frange.range)
         })
@@ -467,7 +466,7 @@ impl Analysis {
         // FIXME: Edition
         self.with_db(|db| {
             let editioned_file_id_wrapper =
-                EditionedFileId::current_edition_guess_origin(&self.db, file_id);
+                EditionedFileId::current_edition_guess_origin(db, file_id);
             let source_file = db.parse(editioned_file_id_wrapper).tree();
             file_structure::file_structure(&source_file, config)
         })
@@ -761,7 +760,7 @@ impl Analysis {
         &self,
         config: &CompletionConfig<'_>,
         position: FilePosition,
-        imports: impl IntoIterator<Item = String> + std::panic::UnwindSafe,
+        imports: impl IntoIterator<Item = String> + UnwindSafe,
     ) -> Cancellable<Vec<TextEdit>> {
         Ok(self
             .with_db(|db| ide_completion::resolve_completion_edits(db, config, position, imports))?
@@ -936,7 +935,7 @@ impl Analysis {
     /// catching it on the API boundary.
     fn with_db<F, T>(&self, f: F) -> Cancellable<T>
     where
-        F: FnOnce(&RootDatabase) -> T + std::panic::UnwindSafe,
+        F: FnOnce(&RootDatabase) -> T + UnwindSafe,
     {
         // We use `attach_db_allow_change()` and not `attach_db()` because fixture injection can change the database.
         hir::attach_db_allow_change(&self.db, || Cancelled::catch(|| f(&self.db)))

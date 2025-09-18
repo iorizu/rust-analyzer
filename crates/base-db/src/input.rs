@@ -842,7 +842,7 @@ impl CrateGraphBuilder {
         to_keep: &[CrateBuilderId],
     ) -> Vec<Option<CrateBuilderId>> {
         let mut id_map = vec![None; self.arena.len()];
-        self.arena = std::mem::take(&mut self.arena)
+        self.arena = mem::take(&mut self.arena)
             .into_iter()
             .filter_map(|(id, data)| if to_keep.contains(&id) { Some((id, data)) } else { None })
             .enumerate()

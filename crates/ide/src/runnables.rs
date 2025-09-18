@@ -157,8 +157,8 @@ pub(crate) fn runnables(db: &RootDatabase, file_id: FileId) -> Vec<Runnable> {
             Definition::Function(it) => runnable_fn(&sema, it),
             Definition::SelfType(impl_) => runnable_impl(&sema, &impl_),
             _ => None,
-        };
-        add_opt(runnable.or_else(|| module_def_doctest(&sema, def)), Some(def));
+        }.or_else(|| module_def_doctest(&sema, def));
+        add_opt(runnable, Some(def));
         if let Definition::SelfType(impl_) = def {
             impl_.items(db).into_iter().for_each(|assoc| {
                 let runnable = match assoc {
@@ -503,14 +503,14 @@ fn module_def_doctest(sema: &Semantics<'_, RootDatabase>, def: Definition) -> Op
         Definition::SelfType(it) => it.attrs(db),
         _ => return None,
     };
+    if !has_runnable_doc_test(db, &attrs) {
+        return None;
+    }
     let krate = def.krate(db);
     let edition = krate.map(|it| it.edition(db)).unwrap_or(Edition::CURRENT);
     let display_target = krate
         .unwrap_or_else(|| (*db.all_crates().last().expect("no crate graph present")).into())
         .to_display_target(db);
-    if !has_runnable_doc_test(db, &attrs) {
-        return None;
-    }
     let def_name = def.name(db)?;
     let path = (|| {
         let mut path = String::new();
@@ -540,7 +540,7 @@ fn module_def_doctest(sema: &Semantics<'_, RootDatabase>, def: Definition) -> Op
         .map_or_else(|| TestId::Name(def_name.display_no_db(edition).to_smolstr()), TestId::Path);
 
     let mut nav = match def {
-        Definition::Module(def) => NavigationTarget::from_module_to_decl(db, def),
+        Definition::Module(module) => NavigationTarget::from_module_to_decl(db, module),
         def => def.try_to_nav(sema)?,
     }
     .call_site();

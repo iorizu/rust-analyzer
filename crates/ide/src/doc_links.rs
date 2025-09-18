@@ -149,7 +149,7 @@ pub(crate) fn external_docs(
     target_dir: Option<&str>,
     sysroot: Option<&str>,
 ) -> Option<DocumentationLinks> {
-    let sema = &Semantics::new(db);
+    let sema = Semantics::new(db);
     let file = sema.parse_guess_edition(file_id).syntax().clone();
     let token = pick_best_token(file.token_at_offset(offset), |kind| match kind {
         IDENT | INT_NUMBER | T![self] => 3,
@@ -162,7 +162,7 @@ pub(crate) fn external_docs(
     let node = token.parent()?;
     let definition = match_ast! {
         match node {
-            ast::NameRef(name_ref) => match NameRefClass::classify(sema, &name_ref)? {
+            ast::NameRef(name_ref) => match NameRefClass::classify(&sema, &name_ref)? {
                 NameRefClass::Definition(def, _) => def,
                 NameRefClass::FieldShorthand { local_ref: _, field_ref, adt_subst: _ } => {
                     Definition::Field(field_ref)
@@ -171,7 +171,7 @@ pub(crate) fn external_docs(
                     Definition::ExternCrateDecl(decl)
                 }
             },
-            ast::Name(name) => match NameClass::classify(sema, &name)? {
+            ast::Name(name) => match NameClass::classify(&sema, &name)? {
                 NameClass::Definition(it) | NameClass::ConstReference(it) => it,
                 NameClass::PatFieldShorthand { local_def: _, field_ref, adt_subst: _ } => Definition::Field(field_ref),
             },

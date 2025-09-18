@@ -932,17 +932,17 @@ pub(crate) fn handle_parent_module(
                     target_range: Range::default(),
                     target_selection_range: Range::default(),
                 })
-                .collect::<_>();
+                .collect();
             return Ok(Some(links.into()));
         }
 
         // check if invoked at the crate root
         let file_id = try_default!(from_proto::file_id(&snap, &params.text_document.uri)?);
-        let crate_id = match snap.analysis.crates_for(file_id)?.first() {
-            Some(&crate_id) => crate_id,
+        let crate_id = match snap.analysis.crates_for(file_id)?.first().copied() {
+            Some(crate_id) => crate_id,
             None => return Ok(None),
         };
-        let cargo_spec = match TargetSpec::for_file(&snap, file_id)? {
+        let cargo_spec = match snap.target_spec_for_file_and_crate(file_id, crate_id) {
             Some(TargetSpec::Cargo(it)) => it,
             Some(TargetSpec::ProjectJson(_)) | None => return Ok(None),
         };
@@ -988,7 +988,7 @@ pub(crate) fn handle_runnables(
     let source_root = snap.analysis.source_root_id(file_id).ok();
     let line_index = snap.file_line_index(file_id)?;
     let offset = params.position.and_then(|it| from_proto::offset(&line_index, it).ok());
-    let target_spec = TargetSpec::for_file(&snap, file_id)?;
+    let target_spec = snap.target_spec_for_file(file_id)?;
 
     let mut res = Vec::new();
     for runnable in snap.analysis.runnables(file_id)? {
@@ -1004,13 +1004,13 @@ pub(crate) fn handle_runnables(
                 res.push(runnable);
             }
 
-            if let lsp_ext::RunnableArgs::Cargo(r) = &mut runnable.args
+            if let lsp_ext::RunnableArgs::Cargo(args) = &mut runnable.args
                 && let Some(TargetSpec::Cargo(CargoTargetSpec {
                     sysroot_root: Some(sysroot_root),
                     ..
                 })) = &target_spec
             {
-                r.environment.insert("RUSTC_TOOLCHAIN".to_owned(), sysroot_root.to_string());
+                args.environment.insert("RUSTC_TOOLCHAIN".to_owned(), sysroot_root.to_string());
             };
 
             res.push(runnable);
@@ -1646,7 +1646,7 @@ pub(crate) fn handle_code_lens(
     }
 
     let file_id = try_default!(from_proto::file_id(&snap, &params.text_document.uri)?);
-    let target_spec = TargetSpec::for_file(&snap, file_id)?;
+    let target_spec = snap.target_spec_for_file(file_id)?;
 
     let annotations = snap.analysis.annotations(
         &lens_config.into_annotation_config(
@@ -1767,21 +1767,21 @@ pub(crate) fn handle_inlay_hints(
     );
 
     let inlay_hints_config = snap.config.inlay_hints(snap.minicore());
-    Ok(Some(
-        snap.analysis
-            .inlay_hints(&inlay_hints_config, file_id, Some(range))?
-            .into_iter()
-            .map(|it| {
-                to_proto::inlay_hint(
-                    &snap,
-                    &inlay_hints_config.fields_to_resolve,
-                    &line_index,
-                    file_id,
-                    it,
-                )
-            })
-            .collect::<Cancellable<Vec<_>>>()?,
-    ))
+    let inlay_hints: Vec<_> = snap
+        .analysis
+        .inlay_hints(&inlay_hints_config, file_id, Some(range))?
+        .into_iter()
+        .map(|it| {
+            to_proto::inlay_hint(
+                &snap,
+                &inlay_hints_config.fields_to_resolve,
+                &line_index,
+                file_id,
+                it,
+            )
+        })
+        .collect::<Cancellable<_>>()?;
+    Ok(Some(inlay_hints))
 }
 
 pub(crate) fn handle_inlay_hints_resolve(
@@ -2084,7 +2084,7 @@ pub(crate) fn handle_open_cargo_toml(
     let _p = tracing::info_span!("handle_open_cargo_toml").entered();
     let file_id = try_default!(from_proto::file_id(&snap, &params.text_document.uri)?);
 
-    let cargo_spec = match TargetSpec::for_file(&snap, file_id)? {
+    let cargo_spec = match snap.target_spec_for_file(file_id)? {
         Some(TargetSpec::Cargo(it)) => it,
         Some(TargetSpec::ProjectJson(_)) | None => return Ok(None),
     };
@@ -2131,23 +2131,26 @@ pub(crate) fn handle_view_recursive_memory_layout(
     let line_index = snap.file_line_index(file_id)?;
     let offset = from_proto::offset(&line_index, params.position)?;
 
-    let res = snap.analysis.get_recursive_memory_layout(FilePosition { file_id, offset })?;
-    Ok(res.map(|it| lsp_ext::RecursiveMemoryLayout {
-        nodes: it
-            .nodes
-            .iter()
-            .map(|n| lsp_ext::MemoryLayoutNode {
-                item_name: n.item_name.clone(),
-                typename: n.typename.clone(),
-                size: n.size,
-                offset: n.offset,
-                alignment: n.alignment,
-                parent_idx: n.parent_idx,
-                children_start: n.children_start,
-                children_len: n.children_len,
-            })
-            .collect(),
-    }))
+    let recurse_mem_layout = snap
+        .analysis
+        .get_recursive_memory_layout(FilePosition { file_id, offset })?
+        .map(|it| lsp_ext::RecursiveMemoryLayout {
+            nodes: it
+                .nodes
+                .into_iter()
+                .map(|n| lsp_ext::MemoryLayoutNode {
+                    item_name: n.item_name.clone(),
+                    typename: n.typename.clone(),
+                    size: n.size,
+                    offset: n.offset,
+                    alignment: n.alignment,
+                    parent_idx: n.parent_idx,
+                    children_start: n.children_start,
+                    children_len: n.children_len,
+                })
+                .collect(),
+        });
+    Ok(recurse_mem_layout)
 }
 
 fn to_command_link(command: lsp_types::Command, tooltip: String) -> lsp_ext::CommandLink {
@@ -2235,7 +2238,7 @@ fn runnable_action_links(
         return None;
     }
 
-    let target_spec = TargetSpec::for_file(snap, runnable.nav.file_id).ok()?;
+    let target_spec = snap.target_spec_for_file(runnable.nav.file_id).ok()?;
     if should_skip_target(&runnable, target_spec.as_ref()) {
         return None;
     }
@@ -2328,7 +2331,7 @@ fn should_skip_target(runnable: &Runnable, cargo_spec: Option<&TargetSpec>) -> b
     match runnable.kind {
         RunnableKind::Bin => {
             // Do not suggest binary run on other target than binary
-            match &cargo_spec {
+            match cargo_spec {
                 Some(spec) => !matches!(
                     spec.target_kind(),
                     TargetKind::Bin | TargetKind::Example | TargetKind::Test
@@ -2373,14 +2376,11 @@ fn run_rustfmt(
         RustfmtConfig::Rustfmt { extra_args, enable_range_formatting } => {
             // Determine the edition of the crate the file belongs to (if there's multiple, we pick the
             // highest edition).
-            let Ok(editions) = crates
-                .iter()
-                .map(|&crate_id| snap.analysis.crate_edition(crate_id))
-                .collect::<Result<Vec<_>, _>>()
-            else {
-                return Ok(None);
-            };
-            let edition = editions.iter().copied().max();
+            let editions: Vec<_> = crates
+                .into_iter()
+                .map(|crate_id| snap.analysis.crate_edition(crate_id))
+                .collect::<Cancellable<_>>()?;
+            let edition = editions.iter().max();
 
             // FIXME: Set RUSTUP_TOOLCHAIN
             let mut cmd = toolchain::command(
@@ -2428,8 +2428,10 @@ fn run_rustfmt(
         }
         RustfmtConfig::CustomCommand { command, args } => {
             let cmd = Utf8PathBuf::from(&command);
-            let target_spec =
-                crates.first().and_then(|&crate_id| snap.target_spec_for_file(file_id, crate_id));
+            let target_spec = crates
+                .first()
+                .copied()
+                .and_then(|crate_id| snap.target_spec_for_file_and_crate(file_id, crate_id));
             let extra_env = snap.config.extra_env(source_root_id);
             let mut cmd = match target_spec {
                 Some(TargetSpec::Cargo(_)) => {

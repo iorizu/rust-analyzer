@@ -302,7 +302,7 @@ fn run_flycheck(state: &mut GlobalState, vfs_path: VfsPath) -> bool {
 
     let file_id = state.vfs.read().0.file_id(&vfs_path);
     if let Some((file_id, vfs::FileExcluded::No)) = file_id {
-        let world = state.snapshot();
+        let snapshot = state.snapshot();
         let invocation_strategy = state.config.flycheck(None).invocation_strategy();
         let may_flycheck_workspace = state.config.flycheck_workspace(None);
 
@@ -311,24 +311,24 @@ fn run_flycheck(state: &mut GlobalState, vfs_path: VfsPath) -> bool {
                 InvocationStrategy::Once => {
                     Box::new(move || {
                         // FIXME: Because triomphe::Arc's auto UnwindSafe impl requires that the inner type
-                        // be UnwindSafe, and FlycheckHandle is not UnwindSafe, `word.flycheck` cannot
+                        // be UnwindSafe, and FlycheckHandle is not UnwindSafe, `snapshot.flycheck` cannot
                         // be captured directly. std::sync::Arc has an UnwindSafe impl that only requires
                         // that the inner type be RefUnwindSafe, so if we were using that one we wouldn't
                         // have this problem. Remove the line below when triomphe::Arc has an UnwindSafe impl
                         // like std::sync::Arc's.
-                        let world = world;
+                        let snapshot = snapshot;
                         stdx::always!(
-                            world.flycheck.len() == 1,
+                            snapshot.flycheck.len() == 1,
                             "should have exactly one flycheck handle when invocation strategy is once"
                         );
                         let saved_file = vfs_path.as_path().map(ToOwned::to_owned);
-                        world.flycheck[0].restart_workspace(saved_file);
+                        snapshot.flycheck[0].restart_workspace(saved_file);
                         Ok(())
                     })
                 }
                 InvocationStrategy::PerWorkspace => {
                     Box::new(move || {
-                        let target = TargetSpec::for_file(&world, file_id)?.and_then(|it| {
+                        let target = snapshot.target_spec_for_file(file_id)?.and_then(|it| {
                             let tgt_kind = it.target_kind();
                             let (tgt_name, root, package) = match it {
                                 TargetSpec::Cargo(c) => (c.target, c.workspace_root, c.package_id),
@@ -356,7 +356,7 @@ fn run_flycheck(state: &mut GlobalState, vfs_path: VfsPath) -> bool {
                             let package_check_allowed = target.is_some() || !may_flycheck_workspace;
                             if package_check_allowed {
                                 package_workspace_idx =
-                                    world.workspaces.iter().position(|ws| match &ws.kind {
+                                    snapshot.workspaces.iter().position(|ws| match &ws.kind {
                                         project_model::ProjectWorkspaceKind::Cargo {
                                             cargo,
                                             ..
@@ -369,8 +369,8 @@ fn run_flycheck(state: &mut GlobalState, vfs_path: VfsPath) -> bool {
                                     });
                                 if let Some(idx) = package_workspace_idx {
                                     let workspace_deps =
-                                        world.all_workspace_dependencies_for_package(&package);
-                                    world.flycheck[idx].restart_for_package(
+                                        snapshot.all_workspace_dependencies_for_package(&package);
+                                    snapshot.flycheck[idx].restart_for_package(
                                         package,
                                         target,
                                         workspace_deps,
@@ -385,11 +385,11 @@ fn run_flycheck(state: &mut GlobalState, vfs_path: VfsPath) -> bool {
 
                         // Trigger flychecks for all workspaces that depend on the saved file
                         // Crates containing or depending on the saved file
-                        let crate_ids: Vec<_> = world
+                        let crate_ids: Vec<_> = snapshot
                             .analysis
                             .crates_for(file_id)?
                             .into_iter()
-                            .flat_map(|id| world.analysis.transitive_rev_deps(id))
+                            .flat_map(|id| snapshot.analysis.transitive_rev_deps(id))
                             .flatten()
                             .unique()
                             .collect();
@@ -397,11 +397,11 @@ fn run_flycheck(state: &mut GlobalState, vfs_path: VfsPath) -> bool {
                         let crate_root_paths: Vec<_> = crate_ids
                             .iter()
                             .filter_map(|&crate_id| {
-                                world
+                                snapshot
                                     .analysis
                                     .crate_root(crate_id)
                                     .map(|file_id| {
-                                        world
+                                        snapshot
                                             .file_id_to_file_path(file_id)
                                             .as_path()
                                             .map(ToOwned::to_owned)
@@ -415,7 +415,7 @@ fn run_flycheck(state: &mut GlobalState, vfs_path: VfsPath) -> bool {
 
                         // Find all workspaces that have at least one target containing the saved file
                         let workspace_ids =
-                            world.workspaces.iter().enumerate().filter(|&(idx, ws)| {
+                            snapshot.workspaces.iter().enumerate().filter(|&(idx, ws)| {
                                 let ws_contains_file = match &ws.kind {
                                     project_model::ProjectWorkspaceKind::Cargo {
                                         cargo, ..
@@ -447,7 +447,7 @@ fn run_flycheck(state: &mut GlobalState, vfs_path: VfsPath) -> bool {
                         let saved_file = vfs_path.as_path().map(ToOwned::to_owned);
                         let mut workspace_check_triggered = false;
                         // Find and trigger corresponding flychecks
-                        'flychecks: for flycheck in world.flycheck.iter() {
+                        'flychecks: for flycheck in snapshot.flycheck.iter() {
                             for (id, _) in workspace_ids.clone() {
                                 if id == flycheck.id() {
                                     workspace_check_triggered = true;
@@ -459,7 +459,7 @@ fn run_flycheck(state: &mut GlobalState, vfs_path: VfsPath) -> bool {
 
                         // No specific flycheck was triggered, so let's trigger all of them.
                         if !workspace_check_triggered && package_workspace_idx.is_none() {
-                            for flycheck in world.flycheck.iter() {
+                            for flycheck in snapshot.flycheck.iter() {
                                 flycheck.restart_workspace(saved_file.clone());
                             }
                         }
