@@ -74,10 +74,10 @@ impl DnfExpr {
     }
 
     /// Returns `CfgDiff` objects that would enable this directive if applied to `opts`.
-    pub fn compute_enable_hints<'a>(
-        &'a self,
-        opts: &'a CfgOptions,
-    ) -> impl Iterator<Item = CfgDiff> + 'a {
+    pub fn compute_enable_hints(
+        &self,
+        opts: &CfgOptions,
+    ) -> impl Iterator<Item = CfgDiff> {
         // A cfg is enabled if any of `self.conjunctions` evaluate to `true`.
 
         self.conjunctions.iter().filter_map(move |conj| {

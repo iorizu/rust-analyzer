@@ -1536,8 +1536,9 @@ pub(crate) fn runnable(
     snap: &GlobalStateSnapshot,
     runnable: Runnable,
 ) -> Cancellable<Option<lsp_ext::Runnable>> {
-    let target_spec = TargetSpec::for_file(snap, runnable.nav.file_id)?;
-    let source_root = snap.analysis.source_root_id(runnable.nav.file_id).ok();
+    let file_id = runnable.nav.file_id;
+    let target_spec = snap.target_spec_for_file(file_id)?;
+    let source_root = snap.analysis.source_root_id(file_id).ok();
     let config = snap.config.runnables(source_root);
 
     match target_spec {
@@ -1602,7 +1603,7 @@ pub(crate) fn runnable(
             }
         }
         None => {
-            let Some(path) = snap.file_id_to_file_path(runnable.nav.file_id).parent() else {
+            let Some(path) = snap.file_id_to_file_path(file_id).parent() else {
                 return Ok(None);
             };
             let (cargo_args, executable_args) =
@@ -1800,8 +1801,8 @@ pub(crate) fn test_item(
         id: test_item.id,
         label: test_item.label,
         kind: match test_item.kind {
-            ide::TestItemKind::Crate(id) => match snap.target_spec_for_crate(id) {
-                Some(target_spec) => match target_spec.target_kind() {
+            ide::TestItemKind::Crate(id) => match snap.target_spec_for_crate(id).ok() {
+                Some(Some(target_spec)) => match target_spec.target_kind() {
                     project_model::TargetKind::Bin
                     | project_model::TargetKind::Lib { .. }
                     | project_model::TargetKind::Example
@@ -1811,7 +1812,7 @@ pub(crate) fn test_item(
                     // benches are not tests needed to be shown in the test explorer
                     project_model::TargetKind::Bench => return None,
                 },
-                None => lsp_ext::TestItemKind::Package,
+                _ => lsp_ext::TestItemKind::Package,
             },
             ide::TestItemKind::Module => lsp_ext::TestItemKind::Module,
             ide::TestItemKind::Function => lsp_ext::TestItemKind::Test,

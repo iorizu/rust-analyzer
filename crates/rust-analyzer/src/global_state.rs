@@ -764,10 +764,21 @@ impl GlobalStateSnapshot {
         self.vfs_read().file_path(file_id).clone()
     }
 
-    pub(crate) fn target_spec_for_crate(&self, crate_id: Crate) -> Option<TargetSpec> {
-        let file_id = self.analysis.crate_root(crate_id).ok()?;
+    pub(crate) fn target_spec_for_file(&self, file_id: FileId) -> Cancellable<Option<TargetSpec>> {
+        let crate_id = match &*self.analysis.crates_for(file_id)? {
+            &[crate_id, ..] => crate_id,
+            _ => return Ok(None),
+        };
+
+        Ok(self.target_spec_for_crate(crate_id)?)
+    }
+
+    pub(crate) fn target_spec_for_crate(&self, crate_id: Crate) -> Cancellable<Option<TargetSpec>> {
+        let file_id = self.analysis.crate_root(crate_id)?;
         let path = self.vfs_read().file_path(file_id).clone();
-        let path = path.as_path()?;
+        let Some(path) = path.as_path() else {
+            return Ok(None);
+        };
 
         for workspace in self.workspaces.iter() {
             match &workspace.kind {
@@ -780,7 +791,7 @@ impl GlobalStateSnapshot {
                     let target_data = &cargo[target_idx];
                     let package_data = &cargo[target_data.package];
 
-                    return Some(TargetSpec::Cargo(CargoTargetSpec {
+                    return Ok(Some(TargetSpec::Cargo(CargoTargetSpec {
                         workspace_root: cargo.workspace_root().to_path_buf(),
                         cargo_toml: package_data.manifest.clone(),
                         crate_id,
@@ -791,7 +802,7 @@ impl GlobalStateSnapshot {
                         required_features: target_data.required_features.clone(),
                         features: package_data.features.keys().cloned().collect(),
                         sysroot_root: workspace.sysroot.root().map(ToOwned::to_owned),
-                    }));
+                    })));
                 }
                 ProjectWorkspaceKind::Json(project) => {
                     let Some(krate) = project.crate_by_root(path) else {
@@ -801,17 +812,17 @@ impl GlobalStateSnapshot {
                         continue;
                     };
 
-                    return Some(TargetSpec::ProjectJson(ProjectJsonTargetSpec {
+                    return Ok(Some(TargetSpec::ProjectJson(ProjectJsonTargetSpec {
                         label: build.label,
                         target_kind: build.target_kind,
                         shell_runnables: project.runnables().to_owned(),
-                    }));
+                    })));
                 }
                 ProjectWorkspaceKind::DetachedFile { .. } => {}
             };
         }
 
-        None
+        Ok(None)
     }
 
     pub(crate) fn all_workspace_dependencies_for_package(

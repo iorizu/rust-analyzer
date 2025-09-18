@@ -2,7 +2,7 @@
 //!
 //! See: <https://doc.rust-lang.org/reference/conditional-compilation.html#conditional-compilation>
 
-use std::fmt;
+use std::{cmp, fmt};
 
 use intern::Symbol;
 
@@ -19,17 +19,17 @@ pub enum CfgAtom {
 }
 
 impl PartialOrd for CfgAtom {
-    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+    fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
         Some(self.cmp(other))
     }
 }
 
 impl Ord for CfgAtom {
-    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+    fn cmp(&self, other: &Self) -> cmp::Ordering {
         match (self, other) {
             (CfgAtom::Flag(a), CfgAtom::Flag(b)) => a.as_str().cmp(b.as_str()),
-            (CfgAtom::Flag(_), CfgAtom::KeyValue { .. }) => std::cmp::Ordering::Less,
-            (CfgAtom::KeyValue { .. }, CfgAtom::Flag(_)) => std::cmp::Ordering::Greater,
+            (CfgAtom::Flag(_), CfgAtom::KeyValue { .. }) => cmp::Ordering::Less,
+            (CfgAtom::KeyValue { .. }, CfgAtom::Flag(_)) => cmp::Ordering::Greater,
             (CfgAtom::KeyValue { key, value }, CfgAtom::KeyValue { key: key2, value: value2 }) => {
                 key.as_str().cmp(key2.as_str()).then(value.as_str().cmp(value2.as_str()))
             }

@@ -499,14 +499,14 @@ fn module_def_doctest(sema: &Semantics<'_, RootDatabase>, def: Definition) -> Op
         Definition::SelfType(it) => it.attrs(db),
         _ => return None,
     };
+    if !has_runnable_doc_test(&attrs) {
+        return None;
+    }
     let krate = def.krate(db);
     let edition = krate.map(|it| it.edition(db)).unwrap_or(Edition::CURRENT);
     let display_target = krate
         .unwrap_or_else(|| (*db.all_crates().last().expect("no crate graph present")).into())
         .to_display_target(db);
-    if !has_runnable_doc_test(&attrs) {
-        return None;
-    }
     let def_name = def.name(db)?;
     let path = (|| {
         let mut path = String::new();
@@ -538,7 +538,7 @@ fn module_def_doctest(sema: &Semantics<'_, RootDatabase>, def: Definition) -> Op
         .map_or_else(|| TestId::Name(def_name.display_no_db(edition).to_smolstr()), TestId::Path);
 
     let mut nav = match def {
-        Definition::Module(def) => NavigationTarget::from_module_to_decl(db, def),
+        Definition::Module(module) => NavigationTarget::from_module_to_decl(db, module),
         def => def.try_to_nav(sema)?,
     }
     .call_site();

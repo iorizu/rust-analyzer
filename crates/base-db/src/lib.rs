@@ -1,9 +1,7 @@
 //! base_db defines basic database traits. The concrete DB is defined by ide.
 
-pub use salsa;
-pub use salsa_macros;
-
 // FIXME: Rename this crate, base db is non descriptive
+
 mod change;
 mod input;
 pub mod target;
@@ -15,6 +13,19 @@ use std::{
     sync::{Once, atomic::AtomicUsize},
 };
 
+use dashmap::{DashMap, mapref::entry::Entry};
+use rustc_hash::{FxHashSet, FxHasher};
+use salsa::{Durability, Setter};
+use span::Edition;
+use syntax::{Parse, SyntaxError, ast};
+use triomphe::Arc;
+
+pub use query_group;
+pub use salsa;
+pub use salsa_macros;
+pub use semver::{BuildMetadata, Prerelease, Version, VersionReq};
+pub use vfs::{AnchoredPath, AnchoredPathBuf, FileId, VfsPath, file_set::FileSet};
+
 pub use crate::{
     change::FileChange,
     input::{
@@ -24,19 +35,10 @@ pub use crate::{
         ProcMacroPaths, ReleaseChannel, SourceRoot, SourceRootId, UniqueCrateData,
     },
 };
-use dashmap::{DashMap, mapref::entry::Entry};
-pub use query_group::{self};
-use rustc_hash::{FxHashSet, FxHasher};
-use salsa::{Durability, Setter};
-pub use semver::{BuildMetadata, Prerelease, Version, VersionReq};
-use span::Edition;
-use syntax::{Parse, SyntaxError, ast};
-use triomphe::Arc;
-pub use vfs::{AnchoredPath, AnchoredPathBuf, FileId, VfsPath, file_set::FileSet};
 
 pub type FxIndexSet<T> = indexmap::IndexSet<T, rustc_hash::FxBuildHasher>;
 pub type FxIndexMap<K, V> =
-    indexmap::IndexMap<K, V, std::hash::BuildHasherDefault<rustc_hash::FxHasher>>;
+    indexmap::IndexMap<K, V, BuildHasherDefault<rustc_hash::FxHasher>>;
 
 #[macro_export]
 macro_rules! impl_intern_key {
