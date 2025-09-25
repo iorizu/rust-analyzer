@@ -2,7 +2,7 @@
 
 use std::mem;
 
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use rustc_type_ir::error::TypeError;
 use rustc_type_ir::inherent::{Const as _, IntoKind, Ty as _};
 use rustc_type_ir::relate::VarianceDiagInfo;

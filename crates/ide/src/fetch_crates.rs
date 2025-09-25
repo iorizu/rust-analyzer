@@ -1,7 +1,8 @@
 use ide_db::{
-    FileId, FxIndexSet, RootDatabase,
+    FileId, RootDatabase,
     base_db::{CrateOrigin, RootQueryDb},
 };
+use ra_hash::FxIndexSet;
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CrateInfo {

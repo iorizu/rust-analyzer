@@ -2,7 +2,7 @@
 use std::path::Path;
 
 use anyhow::Context;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use toolchain::Tool;
 
 use crate::{

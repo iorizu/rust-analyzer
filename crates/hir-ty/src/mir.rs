@@ -36,7 +36,7 @@ pub use lower::{MirLowerError, lower_to_mir, mir_body_for_closure_query, mir_bod
 pub use monomorphization::{
     monomorphized_mir_body_for_closure_query, monomorphized_mir_body_query,
 };
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use smallvec::{SmallVec, smallvec};
 use stdx::{impl_from, never};
 

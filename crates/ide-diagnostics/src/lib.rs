@@ -90,7 +90,7 @@ use hir::{
     Crate, DisplayTarget, InFile, Semantics, db::ExpandDatabase, diagnostics::AnyDiagnostic,
 };
 use ide_db::{
-    EditionedFileId, FileId, FileRange, FxHashMap, FxHashSet, RootDatabase, Severity, SnippetCap,
+    EditionedFileId, FileId, FileRange, RootDatabase, Severity, SnippetCap,
     assists::{Assist, AssistId, AssistResolveStrategy, ExprFillDefaultMode},
     base_db::{ReleaseChannel, RootQueryDb as _},
     generated::lints::{CLIPPY_LINT_GROUPS, DEFAULT_LINT_GROUPS, DEFAULT_LINTS, Lint, LintGroup},
@@ -100,6 +100,7 @@ use ide_db::{
     syntax_helpers::node_ext::parse_tt_as_comma_sep_paths,
 };
 use itertools::Itertools;
+use ra_hash::{FxHashMap, FxHashSet};
 use syntax::{
     AstPtr, Edition, NodeOrToken, SmolStr, SyntaxKind, SyntaxNode, SyntaxNodePtr, T, TextRange,
     ast::{self, AstNode, HasAttrs},

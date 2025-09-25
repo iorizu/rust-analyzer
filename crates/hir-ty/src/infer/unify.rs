@@ -9,7 +9,7 @@ use either::Either;
 use hir_def::{AdtId, lang_item::LangItem};
 use hir_expand::name::Name;
 use intern::sym;
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use rustc_type_ir::{
     TyVid, TypeVisitableExt, UpcastFrom,
     inherent::{IntoKind, Span, Term as _, Ty as _},

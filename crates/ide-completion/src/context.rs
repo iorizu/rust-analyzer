@@ -12,9 +12,10 @@ use hir::{
     ScopeDef, Semantics, SemanticsScope, Symbol, Type, TypeInfo,
 };
 use ide_db::{
-    FilePosition, FxHashMap, FxHashSet, RootDatabase, famous_defs::FamousDefs,
+    FilePosition, RootDatabase, famous_defs::FamousDefs,
     helpers::is_editable_crate,
 };
+use ra_hash::{FxHashMap, FxHashSet};
 use syntax::{
     AstNode, Edition, SmolStr,
     SyntaxKind::{self, *},

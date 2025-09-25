@@ -28,7 +28,7 @@ use crate::{
 #[cfg(test)]
 thread_local! {
     /// This is used to test `hir_segment_to_ast_segment()`. It's a hack, but it makes testing much easier.
-    pub(super) static SEGMENT_LOWERING_MAP: std::cell::RefCell<rustc_hash::FxHashMap<ast::PathSegment, usize>> = std::cell::RefCell::default();
+    pub(super) static SEGMENT_LOWERING_MAP: std::cell::RefCell<ra_hash::FxHashMap<ast::PathSegment, usize>> = std::cell::RefCell::default();
 }
 
 /// Converts an `ast::Path` to `Path`. Works with use trees.

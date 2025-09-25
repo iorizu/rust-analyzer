@@ -1,18 +1,14 @@
 use std::ops::Not;
 
-use crate::{
-    assist_context::{AssistContext, Assists},
-    utils::convert_param_list_to_arg_list,
-};
 use either::Either;
 use hir::{HasVisibility, db::HirDatabase};
 use ide_db::{
-    FxHashMap, FxHashSet,
     assists::{AssistId, GroupLabel},
     path_transform::PathTransform,
     syntax_helpers::suggest_name,
 };
 use itertools::Itertools;
+use ra_hash::{FxHashMap, FxHashSet};
 use syntax::{
     AstNode, Edition, NodeOrToken, SmolStr, SyntaxKind, ToSmolStr,
     ast::{
@@ -23,6 +19,11 @@ use syntax::{
         make,
     },
     ted::{self, Position},
+};
+
+use crate::{
+    assist_context::{AssistContext, Assists},
+    utils::convert_param_list_to_arg_list,
 };
 
 // Assist: generate_delegate_trait

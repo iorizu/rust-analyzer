@@ -20,7 +20,7 @@ use hir_expand::{
 use intern::{Interned, sym};
 use itertools::{Itertools, izip};
 use la_arena::Idx;
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use span::{Edition, FileAstId, SyntaxContext};
 use syntax::ast;
 use triomphe::Arc;

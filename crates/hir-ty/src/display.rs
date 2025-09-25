@@ -32,11 +32,11 @@ use hir_expand::{mod_path::PathKind, name::Name};
 use intern::{Internable, Interned, sym};
 use itertools::Itertools;
 use la_arena::ArenaMap;
+use ra_hash::FxHashSet;
 use rustc_apfloat::{
     Float,
     ieee::{Half as f16, Quad as f128},
 };
-use rustc_hash::FxHashSet;
 use rustc_type_ir::{
     AliasTyKind, CoroutineArgsParts, RegionKind,
     inherent::{AdtDef, GenericArgs as _, IntoKind, SliceLike},

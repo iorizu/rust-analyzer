@@ -52,7 +52,7 @@ use hir_expand::{
 };
 use intern::Interned;
 use la_arena::{Idx, RawIdx};
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use span::{AstIdNode, Edition, FileAstId, SyntaxContext};
 use stdx::never;
 use syntax::{SyntaxKind, ast, match_ast};

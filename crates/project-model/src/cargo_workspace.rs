@@ -8,7 +8,7 @@ use base_db::Env;
 use cargo_metadata::{CargoOpt, MetadataCommand, PackageId};
 use la_arena::{Arena, Idx};
 use paths::{AbsPath, AbsPathBuf, Utf8Path, Utf8PathBuf};
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use serde_derive::Deserialize;
 use serde_json::from_value;
 use span::Edition;

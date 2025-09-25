@@ -36,7 +36,7 @@ use hir::{
     symbols::{FileSymbol, SymbolCollector},
 };
 use rayon::prelude::*;
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 use triomphe::Arc;
 
 use crate::RootDatabase;

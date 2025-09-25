@@ -4,7 +4,7 @@
 //! placeholders, which start with `$`. For replacement templates, this is the final form. For
 //! search patterns, we go further and parse the pattern as each kind of thing that we can match.
 //! e.g. expressions, type references etc.
-use ide_db::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use std::{fmt::Display, str::FromStr};
 use syntax::{SmolStr, SyntaxKind, SyntaxNode, T};
 

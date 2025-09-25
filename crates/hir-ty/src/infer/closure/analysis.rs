@@ -20,7 +20,7 @@ use hir_def::{
 };
 use hir_expand::name::Name;
 use intern::sym;
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use smallvec::{SmallVec, smallvec};
 use stdx::{format_to, never};
 use syntax::utils::is_raw_identifier;

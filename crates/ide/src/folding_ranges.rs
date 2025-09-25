@@ -1,4 +1,7 @@
-use ide_db::{FxHashSet, syntax_helpers::node_ext::vis_eq};
+use std::hash::Hash;
+
+use ide_db::syntax_helpers::node_ext::vis_eq;
+use ra_hash::FxHashSet;
 use syntax::{
     Direction, NodeOrToken, SourceFile,
     SyntaxKind::{self, *},
@@ -6,8 +9,6 @@ use syntax::{
     ast::{self, AstNode, AstToken},
     match_ast,
 };
-
-use std::hash::Hash;
 
 const REGION_START: &str = "// region:";
 const REGION_END: &str = "// endregion";

@@ -36,6 +36,7 @@ ide-db.workspace = true
 ide-diagnostics.workspace = true
 ide-ssr.workspace = true
 profile.workspace = true
+ra-hash.workspace = true
 stdx.workspace = true
 syntax.workspace = true
 span.workspace = true

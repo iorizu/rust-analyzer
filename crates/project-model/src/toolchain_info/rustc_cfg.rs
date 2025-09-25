@@ -2,7 +2,7 @@
 
 use anyhow::Context;
 use cfg::CfgAtom;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use toolchain::Tool;
 
 use crate::{toolchain_info::QueryConfig, utf8_stdout};

@@ -7,7 +7,7 @@ mod tests;
 
 use std::fmt;
 
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 
 use intern::{Symbol, sym};
 

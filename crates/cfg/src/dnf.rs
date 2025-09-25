@@ -8,7 +8,7 @@
 
 use std::fmt::{self, Write};
 
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 
 use crate::{CfgAtom, CfgDiff, CfgExpr, CfgOptions, InactiveReason};
 

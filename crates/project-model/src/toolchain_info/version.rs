@@ -1,7 +1,7 @@
 //! Get the version string of the toolchain.
 
 use anyhow::Context;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use semver::Version;
 use toolchain::Tool;
 

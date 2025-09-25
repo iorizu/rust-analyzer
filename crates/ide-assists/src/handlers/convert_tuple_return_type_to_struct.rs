@@ -1,7 +1,6 @@
 use either::Either;
 use hir::ModuleDef;
 use ide_db::{
-    FxHashSet,
     assists::AssistId,
     defs::Definition,
     helpers::mod_path_to_ast,
@@ -10,6 +9,7 @@ use ide_db::{
     source_change::SourceChangeBuilder,
     syntax_helpers::node_ext::{for_each_tail_expr, walk_expr},
 };
+use ra_hash::FxHashSet;
 use syntax::{
     AstNode, SyntaxNode,
     ast::{self, HasName, edit::IndentLevel, edit_in_place::Indent, make},

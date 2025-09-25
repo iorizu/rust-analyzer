@@ -5,17 +5,17 @@
 use std::{
     borrow::Borrow,
     fmt::{self, Debug, Display},
-    hash::{BuildHasher, BuildHasherDefault, Hash, Hasher},
+    hash::{BuildHasher, Hash, Hasher},
     ops::Deref,
     sync::OnceLock,
 };
 
-use dashmap::{DashMap, SharedValue};
+use dashmap::SharedValue;
 use hashbrown::raw::RawTable;
-use rustc_hash::FxHasher;
+use ra_hash::FxDashMap;
 use triomphe::Arc;
 
-type InternMap<T> = DashMap<Arc<T>, (), BuildHasherDefault<FxHasher>>;
+type InternMap<T> = FxDashMap<Arc<T>, ()>;
 type Guard<T> = dashmap::RwLockWriteGuard<'static, RawTable<(Arc<T>, SharedValue<()>)>>;
 
 mod symbol;
@@ -193,7 +193,7 @@ impl<T: ?Sized> InternStorage<T> {
 
 impl<T: Internable + ?Sized> InternStorage<T> {
     fn get(&self) -> &InternMap<T> {
-        self.map.get_or_init(DashMap::default)
+        self.map.get_or_init(FxDashMap::default)
     }
 }
 

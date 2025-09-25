@@ -6,7 +6,7 @@ use cfg::{CfgAtom, CfgDiff};
 use expect_test::{ExpectFile, expect_file};
 use intern::sym;
 use paths::{AbsPath, AbsPathBuf, Utf8Path, Utf8PathBuf};
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use serde::de::DeserializeOwned;
 use span::FileId;
 

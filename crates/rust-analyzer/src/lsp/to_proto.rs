@@ -16,9 +16,10 @@ use ide::{
     SnippetEdit, SourceChange, StructureNodeKind, SymbolKind, TextEdit, TextRange, TextSize,
     UpdateTest,
 };
-use ide_db::{FxHasher, assists, rust_doc::format_docs, source_change::ChangeAnnotationId};
+use ide_db::{assists, rust_doc::format_docs, source_change::ChangeAnnotationId};
 use itertools::Itertools;
 use paths::{Utf8Component, Utf8Prefix};
+use ra_hash::hash_one;
 use semver::VersionReq;
 use serde_json::to_value;
 use vfs::AbsPath;
@@ -568,10 +569,7 @@ pub(crate) fn inlay_hint(
     let resolve_range_and_hash = hint_needs_resolve(&inlay_hint).map(|range| {
         (
             range,
-            std::hash::BuildHasher::hash_one(
-                &std::hash::BuildHasherDefault::<FxHasher>::default(),
-                &inlay_hint,
-            ),
+            hash_one(&inlay_hint),
         )
     });
 

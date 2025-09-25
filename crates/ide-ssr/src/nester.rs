@@ -7,7 +7,7 @@
 //! then we'll get 3 matches, however only the outermost and innermost matches can be accepted. The
 //! middle match would take the second `foo` from the outer match.
 
-use ide_db::FxHashMap;
+use ra_hash::FxHashMap;
 use syntax::SyntaxNode;
 
 use crate::{Match, SsrMatches};

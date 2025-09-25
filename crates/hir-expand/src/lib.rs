@@ -26,7 +26,7 @@ mod fixup;
 mod prettify_macro_expansion_;
 
 use attrs::collect_attrs;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use salsa::plumbing::{AsId, FromId};
 use stdx::TupleExt;
 use triomphe::Arc;

@@ -5,8 +5,7 @@
 use std::fmt;
 
 use fst::{IntoStreamer, Streamer};
-use indexmap::IndexMap;
-use rustc_hash::{FxBuildHasher, FxHashMap};
+use ra_hash::{FxHashMap, FxIndexMap};
 
 use crate::{AnchoredPath, FileId, Vfs, VfsPath};
 
@@ -14,7 +13,7 @@ use crate::{AnchoredPath, FileId, Vfs, VfsPath};
 #[derive(Default, Clone, Eq, PartialEq)]
 pub struct FileSet {
     files: FxHashMap<VfsPath, FileId>,
-    paths: IndexMap<FileId, VfsPath, FxBuildHasher>,
+    paths: FxIndexMap<FileId, VfsPath>,
 }
 
 impl FileSet {

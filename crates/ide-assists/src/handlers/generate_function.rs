@@ -3,7 +3,7 @@ use hir::{
     TypeInfo,
 };
 use ide_db::{
-    FileId, FxHashMap, FxHashSet, RootDatabase, SnippetCap,
+    FileId, RootDatabase, SnippetCap,
     assists::ExprFillDefaultMode,
     defs::{Definition, NameRefClass},
     famous_defs::FamousDefs,
@@ -12,6 +12,7 @@ use ide_db::{
     source_change::SourceChangeBuilder,
 };
 use itertools::Itertools;
+use ra_hash::{FxHashMap, FxHashSet};
 use stdx::to_lower_snake_case;
 use syntax::{
     Edition, SyntaxKind, SyntaxNode, T, TextRange,

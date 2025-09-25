@@ -50,10 +50,9 @@ use hir_def::{
     type_ref::{ConstRef, LifetimeRefId, TypeRefId},
 };
 use hir_expand::{mod_path::ModPath, name::Name};
-use indexmap::IndexSet;
 use intern::sym;
 use la_arena::{ArenaMap, Entry};
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet, FxIndexSet};
 use rustc_type_ir::inherent::Ty as _;
 use stdx::{always, never};
 use triomphe::Arc;
@@ -737,7 +736,7 @@ pub(crate) struct InferenceContext<'db> {
     traits_in_scope: FxHashSet<TraitId>,
     pub(crate) result: InferenceResult,
     tuple_field_accesses_rev:
-        IndexSet<Substitution, std::hash::BuildHasherDefault<rustc_hash::FxHasher>>,
+        FxIndexSet<Substitution>,
     /// The return type of the function being inferred, the closure or async block if we're
     /// currently within one.
     ///

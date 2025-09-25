@@ -7,7 +7,7 @@ use std::{
 };
 
 use rowan::TextRange;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use stdx::format_to;
 
 use crate::{

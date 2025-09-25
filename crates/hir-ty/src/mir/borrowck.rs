@@ -7,7 +7,7 @@ use std::iter;
 
 use hir_def::{DefWithBodyId, HasModule};
 use la_arena::ArenaMap;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use stdx::never;
 use triomphe::Arc;
 

@@ -25,7 +25,7 @@ use project_model::{
     CargoConfig, CargoFeatures, ProjectJson, ProjectJsonData, ProjectJsonFromCommand,
     ProjectManifest, RustLibSource,
 };
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet, FxIndexMap};
 use semver::Version;
 use serde::{
     Deserialize, Serialize,
@@ -41,8 +41,6 @@ use crate::{
     lsp::capabilities::ClientCapabilities,
     lsp_ext::{WorkspaceSymbolSearchKind, WorkspaceSymbolSearchScope},
 };
-
-type FxIndexMap<K, V> = indexmap::IndexMap<K, V, rustc_hash::FxBuildHasher>;
 
 mod patch_old_style;
 

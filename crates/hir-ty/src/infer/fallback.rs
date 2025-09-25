@@ -5,7 +5,7 @@ use petgraph::{
     Graph,
     visit::{Dfs, Walker},
 };
-use rustc_hash::{FxBuildHasher, FxHashMap, FxHashSet};
+use ra_hash::{FxBuildHasher, FxHashMap, FxHashSet};
 use rustc_type_ir::{
     TyVid,
     inherent::{IntoKind, Ty as _},

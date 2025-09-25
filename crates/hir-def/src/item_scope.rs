@@ -8,7 +8,7 @@ use hir_expand::{AstId, MacroCallId, attrs::AttrId, db::ExpandDatabase, name::Na
 use indexmap::map::Entry;
 use itertools::Itertools;
 use la_arena::Idx;
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use smallvec::{SmallVec, smallvec};
 use span::Edition;
 use stdx::format_to;

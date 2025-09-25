@@ -6,7 +6,7 @@ use std::{cmp, fmt, mem};
 
 use ena::undo_log::{Rollback, UndoLogs};
 use ena::unify as ut;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use rustc_index::IndexVec;
 use rustc_type_ir::inherent::IntoKind;
 use rustc_type_ir::{RegionKind, RegionVid, UniverseIndex};

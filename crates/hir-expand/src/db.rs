@@ -3,7 +3,7 @@
 use base_db::{Crate, RootQueryDb};
 use either::Either;
 use mbe::MatchedArmIndex;
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 use span::{AstIdMap, Edition, Span, SyntaxContext};
 use syntax::{AstNode, Parse, SyntaxElement, SyntaxError, SyntaxNode, SyntaxToken, T, ast};
 use syntax_bridge::{DocCommentDesugarMode, syntax_node_to_token_tree};

@@ -10,7 +10,6 @@ pub mod target;
 
 use std::{
     cell::RefCell,
-    hash::BuildHasherDefault,
     panic,
     sync::{Once, atomic::AtomicUsize},
 };
@@ -24,19 +23,15 @@ pub use crate::{
         ProcMacroPaths, ReleaseChannel, SourceRoot, SourceRootId, UniqueCrateData,
     },
 };
-use dashmap::{DashMap, mapref::entry::Entry};
+use dashmap::mapref::entry::Entry;
 pub use query_group::{self};
-use rustc_hash::{FxHashSet, FxHasher};
 use salsa::{Durability, Setter};
 pub use semver::{BuildMetadata, Prerelease, Version, VersionReq};
 use span::Edition;
 use syntax::{Parse, SyntaxError, ast};
 use triomphe::Arc;
 pub use vfs::{AnchoredPath, AnchoredPathBuf, FileId, VfsPath, file_set::FileSet};
-
-pub type FxIndexSet<T> = indexmap::IndexSet<T, rustc_hash::FxBuildHasher>;
-pub type FxIndexMap<K, V> =
-    indexmap::IndexMap<K, V, std::hash::BuildHasherDefault<rustc_hash::FxHasher>>;
+use ra_hash::{FxDashMap, FxHashSet};
 
 #[macro_export]
 macro_rules! impl_intern_key {
@@ -64,9 +59,9 @@ pub const DEFAULT_BORROWCK_LRU_CAP: u16 = 2024;
 
 #[derive(Debug, Default)]
 pub struct Files {
-    files: Arc<DashMap<vfs::FileId, FileText, BuildHasherDefault<FxHasher>>>,
-    source_roots: Arc<DashMap<SourceRootId, SourceRootInput, BuildHasherDefault<FxHasher>>>,
-    file_source_roots: Arc<DashMap<vfs::FileId, FileSourceRootInput, BuildHasherDefault<FxHasher>>>,
+    files: Arc<FxDashMap<vfs::FileId, FileText>>,
+    source_roots: Arc<FxDashMap<SourceRootId, SourceRootInput>>,
+    file_source_roots: Arc<FxDashMap<vfs::FileId, FileSourceRootInput>>,
 }
 
 impl Files {

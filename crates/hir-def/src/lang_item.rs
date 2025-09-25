@@ -4,7 +4,7 @@
 //! features, such as Fn family of traits.
 use hir_expand::name::Name;
 use intern::{Symbol, sym};
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use triomphe::Arc;
 
 use crate::{

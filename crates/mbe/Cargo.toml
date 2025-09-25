@@ -14,7 +14,6 @@ doctest = false
 
 [dependencies]
 cov-mark = "2.0.0"
-rustc-hash.workspace = true
 smallvec.workspace = true
 arrayvec.workspace = true
 ra-ap-rustc_lexer.workspace = true
@@ -22,6 +21,7 @@ ra-ap-rustc_lexer.workspace = true
 # local deps
 parser.workspace = true
 tt.workspace = true
+ra-hash.workspace = true
 stdx.workspace = true
 span.workspace = true
 intern.workspace = true

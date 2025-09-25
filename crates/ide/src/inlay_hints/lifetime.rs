@@ -4,8 +4,9 @@
 //! ```
 use std::iter;
 
-use ide_db::{FxHashMap, famous_defs::FamousDefs, syntax_helpers::node_ext::walk_ty};
+use ide_db::{famous_defs::FamousDefs, syntax_helpers::node_ext::walk_ty};
 use itertools::Itertools;
+use ra_hash::FxHashMap;
 use syntax::{SmolStr, format_smolstr};
 use syntax::{
     SyntaxKind, SyntaxToken,

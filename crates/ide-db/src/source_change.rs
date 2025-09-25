@@ -11,7 +11,7 @@ use crate::{SnippetCap, assists::Command, syntax_helpers::tree_diff::diff};
 use base_db::AnchoredPathBuf;
 use itertools::Itertools;
 use nohash_hasher::IntMap;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use span::FileId;
 use stdx::never;
 use syntax::{

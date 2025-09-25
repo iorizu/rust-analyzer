@@ -18,8 +18,8 @@ use hir_def::{
 };
 use hir_expand::name::Name;
 use intern::sym;
+use ra_hash::FxHashSet;
 use rustc_abi::TargetDataLayout;
-use rustc_hash::FxHashSet;
 use rustc_type_ir::inherent::{GenericArgs, IntoKind, SliceLike};
 use smallvec::{SmallVec, smallvec};
 use span::Edition;

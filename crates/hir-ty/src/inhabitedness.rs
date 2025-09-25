@@ -6,7 +6,7 @@ use chalk_ir::{
     visit::{TypeSuperVisitable, TypeVisitable, TypeVisitor},
 };
 use hir_def::{AdtId, EnumVariantId, ModuleId, VariantId, visibility::Visibility};
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 use triomphe::Arc;
 
 use crate::{

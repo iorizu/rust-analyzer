@@ -11,11 +11,12 @@ mod snippet;
 mod tests;
 
 use ide_db::{
-    FilePosition, FxHashSet, RootDatabase,
+    FilePosition, RootDatabase,
     imports::insert_use::{self, ImportScope},
     syntax_helpers::tree_diff::diff,
     text_edit::TextEdit,
 };
+use ra_hash::FxHashSet;
 use syntax::ast::make;
 
 use crate::{

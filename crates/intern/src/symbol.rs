@@ -3,15 +3,15 @@
 
 use std::{
     fmt,
-    hash::{BuildHasher, BuildHasherDefault, Hash},
+    hash::{BuildHasher, Hash},
     mem::{self, ManuallyDrop},
     ptr::NonNull,
     sync::OnceLock,
 };
 
-use dashmap::{DashMap, SharedValue};
+use dashmap::SharedValue;
 use hashbrown::raw::RawTable;
-use rustc_hash::FxHasher;
+use ra_hash::FxDashMap;
 use triomphe::Arc;
 
 pub mod symbols;
@@ -126,7 +126,7 @@ impl fmt::Debug for Symbol {
 const _: () = assert!(size_of::<Symbol>() == size_of::<NonNull<()>>());
 const _: () = assert!(align_of::<Symbol>() == align_of::<NonNull<()>>());
 
-type Map = DashMap<Symbol, (), BuildHasherDefault<FxHasher>>;
+type Map = FxDashMap<Symbol, ()>;
 static MAP: OnceLock<Map> = OnceLock::new();
 
 impl Symbol {

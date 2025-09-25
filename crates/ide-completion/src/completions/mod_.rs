@@ -4,9 +4,10 @@ use std::iter;
 
 use hir::Module;
 use ide_db::{
-    FxHashSet, RootDatabase, SymbolKind,
+    RootDatabase, SymbolKind,
     base_db::{SourceDatabase, VfsPath},
 };
+use ra_hash::FxHashSet;
 use syntax::{AstNode, SyntaxKind, ast};
 
 use crate::{CompletionItem, Completions, context::CompletionContext};

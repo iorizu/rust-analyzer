@@ -17,7 +17,7 @@ use region_constraints::{
 };
 pub use relate::StructurallyRelateAliases;
 pub use relate::combine::PredicateEmittingRelation;
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use rustc_pattern_analysis::Captures;
 use rustc_type_ir::error::{ExpectedFound, TypeError};
 use rustc_type_ir::inherent::{

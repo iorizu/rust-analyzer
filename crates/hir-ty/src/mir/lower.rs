@@ -18,8 +18,8 @@ use hir_def::{
 };
 use hir_expand::name::Name;
 use la_arena::ArenaMap;
+use ra_hash::FxHashMap;
 use rustc_apfloat::Float;
-use rustc_hash::FxHashMap;
 use span::{Edition, FileId};
 use syntax::TextRange;
 use triomphe::Arc;

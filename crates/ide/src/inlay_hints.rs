@@ -11,8 +11,9 @@ use hir::{
 use ide_db::{
     FileRange, RootDatabase, base_db::salsa, famous_defs::FamousDefs, text_edit::TextEditBuilder,
 };
-use ide_db::{FxHashSet, text_edit::TextEdit};
+use ide_db::text_edit::TextEdit;
 use itertools::Itertools;
+use ra_hash::FxHashSet;
 use smallvec::{SmallVec, smallvec};
 use stdx::never;
 use syntax::{

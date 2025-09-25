@@ -14,7 +14,7 @@ use hir_ty::TyBuilder;
 use hir_ty::db::HirDatabase;
 use hir_ty::mir::BorrowKind;
 use itertools::Itertools;
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 use span::Edition;
 
 use crate::{

@@ -7,21 +7,19 @@
 //! actual IO is done and lowered to input.
 
 use std::error::Error;
-use std::hash::BuildHasherDefault;
 use std::{fmt, mem, ops};
 
 use cfg::{CfgOptions, HashableCfgOptions};
-use dashmap::DashMap;
 use dashmap::mapref::entry::Entry;
 use intern::Symbol;
 use la_arena::{Arena, Idx, RawIdx};
-use rustc_hash::{FxBuildHasher, FxHashMap, FxHashSet, FxHasher};
+use ra_hash::{FxBuildHasher, FxDashMap, FxHashMap, FxHashSet, FxIndexSet};
 use salsa::{Durability, Setter};
 use span::Edition;
 use triomphe::Arc;
 use vfs::{AbsPathBuf, AnchoredPath, FileId, VfsPath, file_set::FileSet};
 
-use crate::{CrateWorkspaceData, EditionedFileId, FxIndexSet, RootQueryDb};
+use crate::{CrateWorkspaceData, EditionedFileId, RootQueryDb};
 
 pub type ProcMacroPaths =
     FxHashMap<CrateBuilderId, Result<(String, AbsPathBuf), ProcMacroLoadingError>>;
@@ -462,7 +460,7 @@ pub struct Crate {
 
 /// The mapping from [`UniqueCrateData`] to their [`Crate`] input.
 #[derive(Debug, Default)]
-pub struct CratesMap(DashMap<UniqueCrateData, Crate, BuildHasherDefault<FxHasher>>);
+pub struct CratesMap(FxDashMap<UniqueCrateData, Crate>);
 
 impl CrateGraphBuilder {
     pub fn add_crate_root(

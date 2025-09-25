@@ -5,11 +5,11 @@
 use std::panic::AssertUnwindSafe;
 
 use hir::{Symbol, db::DefDatabase};
-use rustc_hash::FxHashMap;
+use ra_hash::{FxHashMap, FxIndexMap};
 use salsa::{Cancelled, Database};
 
 use crate::{
-    FxIndexMap, RootDatabase,
+    RootDatabase,
     base_db::{Crate, RootQueryDb},
     symbol_index::SymbolsDatabase,
 };

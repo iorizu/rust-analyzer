@@ -1,7 +1,7 @@
 //! See [`complete_fn_param`].
 
 use hir::HirDisplay;
-use ide_db::FxHashMap;
+use ra_hash::FxHashMap;
 use syntax::{
     AstNode, Direction, SyntaxKind, TextRange, TextSize, algo,
     ast::{self, HasModuleItem},

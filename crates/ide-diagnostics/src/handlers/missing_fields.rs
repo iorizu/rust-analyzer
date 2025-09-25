@@ -5,7 +5,6 @@ use hir::{
     sym,
 };
 use ide_db::{
-    FxHashMap,
     assists::{Assist, ExprFillDefaultMode},
     famous_defs::FamousDefs,
     imports::import_assets::item_for_path_search,
@@ -14,6 +13,7 @@ use ide_db::{
     text_edit::TextEdit,
     use_trivial_constructor::use_trivial_constructor,
 };
+use ra_hash::FxHashMap;
 use stdx::format_to;
 use syntax::{
     AstNode, Edition, SyntaxNode, SyntaxNodePtr, ToSmolStr,

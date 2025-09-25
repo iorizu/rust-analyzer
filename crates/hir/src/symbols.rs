@@ -1,6 +1,5 @@
 //! File symbol extraction.
 
-use base_db::FxIndexSet;
 use either::Either;
 use hir_def::{
     AdtId, AssocItemId, Complete, DefWithBodyId, ExternCrateId, HasModule, ImplId, Lookup, MacroId,
@@ -17,7 +16,7 @@ use hir_ty::{
     display::{HirDisplay, hir_display_with_store},
 };
 use intern::Symbol;
-use rustc_hash::FxHashMap;
+use ra_hash::{FxHashMap, FxIndexSet};
 use syntax::{AstNode, AstPtr, SmolStr, SyntaxNode, SyntaxNodePtr, ToSmolStr, ast::HasName};
 
 use crate::{HasCrate, Module, ModuleDef, Semantics};

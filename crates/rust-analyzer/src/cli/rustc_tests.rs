@@ -18,7 +18,7 @@ use project_model::{
 };
 
 use load_cargo::{LoadCargoConfig, ProcMacroServerChoice, load_workspace};
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use vfs::{AbsPathBuf, FileId};
 use walkdir::WalkDir;
 

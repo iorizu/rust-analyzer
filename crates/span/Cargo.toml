@@ -13,14 +13,14 @@ authors.workspace = true
 [dependencies]
 la-arena.workspace = true
 salsa = { workspace = true, optional = true }
-rustc-hash.workspace = true
 hashbrown.workspace = true
 text-size.workspace = true
 
 # local deps
-vfs.workspace = true
+ra-hash.workspace = true
 syntax.workspace = true
 stdx.workspace = true
+vfs.workspace = true
 
 [dev-dependencies]
 syntax.workspace = true

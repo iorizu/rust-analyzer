@@ -1,5 +1,6 @@
 use hir::{HasCrate, HasVisibility};
-use ide_db::{FxHashSet, path_transform::PathTransform};
+use ide_db::path_transform::PathTransform;
+use ra_hash::FxHashSet;
 use syntax::{
     ast::{
         self, AstNode, HasGenericParams, HasName, HasVisibility as _,

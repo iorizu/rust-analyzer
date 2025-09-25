@@ -3,7 +3,7 @@
 use std::{fmt, hash::Hash};
 
 use intern::Symbol;
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use span::{Edition, SpanAnchor, SpanData, SpanMap};
 use stdx::{format_to, never};
 use syntax::{

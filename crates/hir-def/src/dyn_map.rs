@@ -28,7 +28,7 @@ pub mod keys {
     use std::marker::PhantomData;
 
     use hir_expand::{MacroCallId, attrs::AttrId};
-    use rustc_hash::FxHashMap;
+    use ra_hash::FxHashMap;
     use syntax::{AstNode, AstPtr, ast};
 
     use crate::{
@@ -109,7 +109,7 @@ use std::{
     ops::{Index, IndexMut},
 };
 
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use stdx::anymap::Map;
 
 pub struct Key<K, V, P = (K, V)> {

@@ -2,7 +2,7 @@ use std::iter;
 
 use hir::{EditionedFileId, FilePosition, FileRange, HirFileId, InFile, Semantics, db};
 use ide_db::{
-    FxHashMap, FxHashSet, RootDatabase,
+    RootDatabase,
     defs::{Definition, IdentClass},
     helpers::pick_best_token,
     search::{FileReference, ReferenceCategory, SearchScope},
@@ -11,6 +11,7 @@ use ide_db::{
         preorder_expr_with_ctx_checker,
     },
 };
+use ra_hash::{FxHashMap, FxHashSet};
 use syntax::{
     AstNode,
     SyntaxKind::{self, IDENT, INT_NUMBER},

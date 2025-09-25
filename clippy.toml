@@ -1,7 +1,7 @@
 disallowed-types = [
-    { path = "std::collections::HashMap", reason = "use FxHashMap" },
-    { path = "std::collections::HashSet", reason = "use FxHashSet" },
-    { path = "std::collections::hash_map::RandomState", reason = "use BuildHasherDefault<FxHasher>"}
+    { path = "std::collections::HashMap", reason = "use ra_hash::FxHashMap" },
+    { path = "std::collections::HashSet", reason = "use ra_hash::FxHashSet" },
+    { path = "std::collections::hash_map::RandomState", reason = "use ra_hash::FxBuildHasher" }
 ]
 
 disallowed-methods = [

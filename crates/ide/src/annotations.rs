@@ -1,9 +1,10 @@
 use hir::{HasSource, InFile, InRealFile, Semantics};
 use ide_db::{
-    FileId, FilePosition, FileRange, FxIndexSet, RootDatabase, defs::Definition,
+    FileId, FilePosition, FileRange, RootDatabase, defs::Definition,
     helpers::visit_file_defs,
 };
 use itertools::Itertools;
+use ra_hash::FxIndexSet;
 use syntax::{AstNode, TextRange, ast::HasName};
 
 use crate::{

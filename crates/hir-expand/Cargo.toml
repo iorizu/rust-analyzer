@@ -16,7 +16,6 @@ doctest = false
 cov-mark = "2.0.0"
 tracing.workspace = true
 either.workspace = true
-rustc-hash.workspace = true
 itertools.workspace = true
 smallvec.workspace = true
 triomphe.workspace = true
@@ -35,6 +34,7 @@ mbe.workspace = true
 span.workspace = true
 parser.workspace = true
 syntax-bridge.workspace = true
+ra-hash.workspace = true
 
 [dev-dependencies]
 expect-test = "1.5.1"

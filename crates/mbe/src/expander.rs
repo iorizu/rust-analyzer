@@ -6,7 +6,7 @@ mod matcher;
 mod transcriber;
 
 use intern::Symbol;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use span::{Edition, Span};
 
 use crate::{ExpandError, ExpandErrorKind, ExpandResult, MatchedArmIndex, parser::MetaVarKind};

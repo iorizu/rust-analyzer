@@ -1,6 +1,7 @@
 use hir::{PathResolution, Semantics};
-use ide_db::{FxHashMap, RootDatabase};
+use ide_db::RootDatabase;
 use itertools::Itertools;
+use ra_hash::FxHashMap;
 use syntax::{
     AstNode, SyntaxElement,
     ast::{self, HasName},

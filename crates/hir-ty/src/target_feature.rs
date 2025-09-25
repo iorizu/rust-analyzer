@@ -5,7 +5,7 @@ use std::sync::LazyLock;
 use hir_def::attr::Attrs;
 use hir_def::tt;
 use intern::{Symbol, sym};
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 
 #[derive(Debug, Default, Clone)]
 pub struct TargetFeatures {

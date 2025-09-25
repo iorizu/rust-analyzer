@@ -20,12 +20,12 @@ use hir_def::{
 use hir_expand::{InFile, mod_path::path, name::Name};
 use intern::sym;
 use la_arena::ArenaMap;
+use ra_hash::{FxHashMap, FxHashSet};
 use rustc_abi::TargetDataLayout;
 use rustc_apfloat::{
     Float,
     ieee::{Half as f16, Quad as f128},
 };
-use rustc_hash::{FxHashMap, FxHashSet};
 use rustc_type_ir::inherent::{AdtDef, IntoKind, SliceLike};
 use span::FileId;
 use stdx::never;

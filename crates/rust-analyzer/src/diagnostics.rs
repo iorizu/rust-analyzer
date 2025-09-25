@@ -5,9 +5,9 @@ use std::mem;
 
 use cargo_metadata::PackageId;
 use ide::FileId;
-use ide_db::{FxHashMap, base_db::DbPanicContext};
+use ide_db::base_db::DbPanicContext;
 use itertools::Itertools;
-use rustc_hash::FxHashSet;
+use ra_hash::{FxHashMap, FxHashSet};
 use stdx::iter_eq_by;
 use triomphe::Arc;
 

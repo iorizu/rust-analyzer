@@ -38,7 +38,7 @@
 use std::collections::VecDeque;
 
 use intern::Symbol;
-use rustc_hash::FxHashMap;
+use ra_hash::{FxHashMap, FxIndexSet};
 use serde_derive::{Deserialize, Serialize};
 use span::{EditionedFileId, ErasedFileAstId, Span, SpanAnchor, SyntaxContext, TextRange};
 
@@ -47,8 +47,7 @@ use crate::{
     version::{ENCODE_CLOSE_SPAN_VERSION, EXTENDED_LEAF_DATA},
 };
 
-pub type SpanDataIndexMap =
-    indexmap::IndexSet<Span, std::hash::BuildHasherDefault<rustc_hash::FxHasher>>;
+pub type SpanDataIndexMap = FxIndexSet<Span>;
 
 pub fn serialize_span_data_index_map(map: &SpanDataIndexMap) -> Vec<u32> {
     map.iter()

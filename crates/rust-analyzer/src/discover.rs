@@ -3,9 +3,9 @@
 use std::{io, path::Path};
 
 use crossbeam_channel::Sender;
-use ide_db::FxHashMap;
 use paths::{AbsPathBuf, Utf8Path, Utf8PathBuf};
 use project_model::ProjectJsonData;
+use ra_hash::FxHashMap;
 use serde::{Deserialize, Serialize};
 use tracing::{info_span, span::EnteredSpan};
 

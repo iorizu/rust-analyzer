@@ -1,4 +1,4 @@
-use ide_db::FxHashSet;
+use ra_hash::FxHashSet;
 use syntax::{
     AstNode, TextRange,
     ast::{self, HasGenericParams, edit_in_place::GenericParamsOwnerEdit, make},

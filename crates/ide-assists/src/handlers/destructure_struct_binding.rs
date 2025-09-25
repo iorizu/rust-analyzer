@@ -1,12 +1,12 @@
 use hir::{HasVisibility, sym};
 use ide_db::{
-    FxHashMap, FxHashSet,
     assists::AssistId,
     defs::Definition,
     helpers::mod_path_to_ast,
     search::{FileReference, SearchScope},
 };
 use itertools::Itertools;
+use ra_hash::{FxHashMap, FxHashSet};
 use syntax::ast::{HasName, syntax_factory::SyntaxFactory};
 use syntax::syntax_editor::SyntaxEditor;
 use syntax::{AstNode, Edition, SmolStr, SyntaxNode, ToSmolStr, ast};

@@ -1,6 +1,6 @@
 //! Read `.cargo/config.toml` as a JSON object
 use paths::{Utf8Path, Utf8PathBuf};
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use toolchain::Tool;
 
 use crate::{ManifestPath, Sysroot, utf8_stdout};

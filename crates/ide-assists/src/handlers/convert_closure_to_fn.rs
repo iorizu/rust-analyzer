@@ -1,9 +1,10 @@
 use either::Either;
 use hir::{CaptureKind, ClosureCapture, FileRangeWrapper, HirDisplay};
 use ide_db::{
-    FxHashSet, assists::AssistId, base_db::SourceDatabase, defs::Definition,
+    assists::AssistId, base_db::SourceDatabase, defs::Definition,
     search::FileReferenceNode, source_change::SourceChangeBuilder,
 };
+use ra_hash::FxHashSet;
 use stdx::format_to;
 use syntax::{
     AstNode, Direction, SyntaxKind, SyntaxNode, T, TextSize, ToSmolStr,

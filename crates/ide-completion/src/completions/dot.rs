@@ -3,7 +3,7 @@
 use std::ops::ControlFlow;
 
 use hir::{Complete, Function, HasContainer, ItemContainer, MethodCandidateCallback};
-use ide_db::FxHashSet;
+use ra_hash::FxHashSet;
 use syntax::SmolStr;
 
 use crate::{

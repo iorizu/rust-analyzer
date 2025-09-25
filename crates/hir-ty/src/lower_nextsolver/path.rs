@@ -19,7 +19,7 @@ use hir_def::{
 };
 use hir_expand::name::Name;
 use intern::sym;
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 use rustc_type_ir::{
     AliasTerm, AliasTy, AliasTyKind, TypeVisitableExt,
     inherent::{GenericArgs as _, IntoKind, Region as _, SliceLike, Ty as _},

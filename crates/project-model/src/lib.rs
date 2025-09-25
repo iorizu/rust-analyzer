@@ -56,7 +56,7 @@ use std::{
 
 use anyhow::{Context, bail, format_err};
 use paths::{AbsPath, AbsPathBuf, Utf8PathBuf};
-use rustc_hash::FxHashSet;
+use ra_hash::{FxHashMap, FxHashSet};
 
 pub use crate::{
     build_dependencies::{ProcMacroDylibPath, WorkspaceBuildScripts},
@@ -230,7 +230,7 @@ pub struct CfgOverrides {
     /// A global set of overrides matching all crates.
     pub global: cfg::CfgDiff,
     /// A set of overrides matching specific crates.
-    pub selective: rustc_hash::FxHashMap<String, cfg::CfgDiff>,
+    pub selective: FxHashMap<String, cfg::CfgDiff>,
 }
 
 impl CfgOverrides {

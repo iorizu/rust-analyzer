@@ -7,7 +7,6 @@ mod path;
 
 use std::mem;
 
-use base_db::FxIndexSet;
 use cfg::CfgOptions;
 use either::Either;
 use hir_expand::{
@@ -17,7 +16,7 @@ use hir_expand::{
     span_map::SpanMapRef,
 };
 use intern::{Symbol, sym};
-use rustc_hash::FxHashMap;
+use ra_hash::{FxHashMap, FxIndexSet};
 use stdx::never;
 use syntax::{
     AstNode, AstPtr, AstToken as _, SyntaxNodePtr,

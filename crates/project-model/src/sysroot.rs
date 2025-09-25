@@ -10,7 +10,7 @@ use std::{env, fs, ops::Not, path::Path, process::Command};
 use anyhow::{Result, format_err};
 use itertools::Itertools;
 use paths::{AbsPath, AbsPathBuf, Utf8Path, Utf8PathBuf};
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use stdx::format_to;
 use toolchain::{Tool, probe_for_binary};
 

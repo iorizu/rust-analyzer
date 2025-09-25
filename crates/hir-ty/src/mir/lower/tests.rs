@@ -1,5 +1,5 @@
 use hir_def::db::DefDatabase;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use span::Edition;
 use test_fixture::WithFixture;
 use triomphe::Arc;

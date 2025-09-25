@@ -4,7 +4,7 @@ mod errors;
 
 use std::{marker::PhantomData, mem, ops::ControlFlow, vec::ExtractIf};
 
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 use rustc_next_trait_solver::{
     delegate::SolverDelegate,
     solve::{GoalEvaluation, GoalStalledOn, HasChanged, SolverDelegateEvalExt},

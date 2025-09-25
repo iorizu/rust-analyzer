@@ -4,11 +4,12 @@ use std::iter;
 
 use hir::Semantics;
 use ide_db::{
-    FileRange, FxIndexMap, RootDatabase,
+    FileRange, RootDatabase,
     defs::{Definition, NameClass, NameRefClass},
     helpers::pick_best_token,
     search::FileReference,
 };
+use ra_hash::FxIndexMap;
 use syntax::{AstNode, SyntaxKind::IDENT, ast};
 
 use crate::{FilePosition, NavigationTarget, RangeInfo, TryToNav, goto_definition};

@@ -1,6 +1,7 @@
-use hir::Type;
-use ide_db::FxHashMap;
 use std::iter::successors;
+
+use hir::Type;
+use ra_hash::FxHashMap;
 use syntax::{
     Direction,
     algo::neighbor,

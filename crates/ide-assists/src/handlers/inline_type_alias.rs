@@ -3,12 +3,12 @@
 // - Remove unused aliases if there are no longer any users, see inline_call.rs.
 
 use hir::{HasSource, PathResolution};
-use ide_db::FxHashMap;
 use ide_db::{
     defs::Definition, imports::insert_use::ast_to_remove_for_path_in_use_stmt,
     search::FileReference,
 };
 use itertools::Itertools;
+use ra_hash::FxHashMap;
 use syntax::ast::syntax_factory::SyntaxFactory;
 use syntax::syntax_editor::SyntaxEditor;
 use syntax::{

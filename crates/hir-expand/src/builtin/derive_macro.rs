@@ -4,7 +4,7 @@ use either::Either;
 use intern::sym;
 use itertools::{Itertools, izip};
 use parser::SyntaxKind;
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 use span::{Edition, Span, SyntaxContext};
 use stdx::never;
 use syntax_bridge::DocCommentDesugarMode;

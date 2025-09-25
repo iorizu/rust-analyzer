@@ -21,6 +21,7 @@ smallvec.workspace = true
 tracing.workspace = true
 
 # local deps
+ra-hash.workspace = true
 stdx.workspace = true
 syntax.workspace = true
 ide-db.workspace = true

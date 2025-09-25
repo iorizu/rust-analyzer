@@ -8,14 +8,14 @@ use hir::{
     SemanticsScope, Trait, TyFingerprint, Type, db::HirDatabase,
 };
 use itertools::Itertools;
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet, FxIndexSet};
 use syntax::{
     AstNode, SyntaxNode,
     ast::{self, HasName, make},
 };
 
 use crate::{
-    FxIndexSet, RootDatabase,
+    RootDatabase,
     items_locator::{self, AssocSearchMode, DEFAULT_QUERY_SEARCH_LIMIT},
 };
 

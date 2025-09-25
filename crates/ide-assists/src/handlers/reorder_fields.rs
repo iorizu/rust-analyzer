@@ -1,6 +1,6 @@
-use either::Either;
-use ide_db::FxHashMap;
 use itertools::Itertools;
+use either::Either;
+use ra_hash::FxHashMap;
 use syntax::{AstNode, SmolStr, SyntaxElement, ToSmolStr, ast, syntax_editor::SyntaxEditor};
 
 use crate::{AssistContext, AssistId, Assists};

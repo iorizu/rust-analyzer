@@ -3,7 +3,7 @@
 use std::ops::ControlFlow;
 
 use hir::{Complete, Name, PathCandidateCallback, ScopeDef, sym};
-use ide_db::FxHashSet;
+use ra_hash::FxHashSet;
 use syntax::ast;
 
 use crate::{

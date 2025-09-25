@@ -4,7 +4,7 @@
 use std::fmt;
 use std::hash::Hash;
 
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use span::{Edition, SpanData};
 use syntax::{SyntaxKind, SyntaxKind::*, T};
 

@@ -14,7 +14,7 @@ use cfg::CfgAtom;
 use itertools::Itertools;
 use la_arena::ArenaMap;
 use paths::{AbsPath, AbsPathBuf, Utf8PathBuf};
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use serde::Deserialize as _;
 use stdx::never;
 use toolchain::Tool;
