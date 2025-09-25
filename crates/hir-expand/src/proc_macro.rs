@@ -1,12 +1,12 @@
 //! Proc Macro Expander stuff
 
-use core::fmt;
+use std::fmt;
 use std::any::Any;
 use std::{panic::RefUnwindSafe, sync};
 
 use base_db::{Crate, CrateBuilderId, CratesIdMap, Env, ProcMacroLoadingError};
 use intern::Symbol;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use span::Span;
 use triomphe::Arc;
 

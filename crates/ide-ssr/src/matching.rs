@@ -7,7 +7,8 @@ use crate::{
     resolving::{ResolvedPattern, ResolvedRule, UfcsCallInfo},
 };
 use hir::{FileRange, FindPathConfig, Semantics};
-use ide_db::{FxHashMap, base_db::RootQueryDb};
+use ide_db::base_db::RootQueryDb;
+use ra_hash::FxHashMap;
 use std::{cell::Cell, iter::Peekable};
 use syntax::{
     SmolStr, SyntaxElement, SyntaxElementChildren, SyntaxKind, SyntaxNode, SyntaxToken,

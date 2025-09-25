@@ -1,8 +1,8 @@
 //! Basic tree diffing functionality.
-use rustc_hash::FxHashMap;
+use ra_hash::{FxHashMap, FxIndexMap};
 use syntax::{NodeOrToken, SyntaxElement, SyntaxNode};
 
-use crate::{FxIndexMap, text_edit::TextEditBuilder};
+use crate::{text_edit::TextEditBuilder};
 
 #[derive(Debug, Hash, PartialEq, Eq)]
 enum TreeDiffInsertPos {

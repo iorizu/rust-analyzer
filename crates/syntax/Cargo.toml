@@ -16,13 +16,14 @@ doctest = false
 either.workspace = true
 itertools.workspace = true
 rowan.workspace = true
-rustc-hash.workspace = true
 rustc-literal-escaper.workspace = true
 smol_str.workspace = true
 triomphe.workspace = true
 tracing.workspace = true
 
+# local crates
 parser.workspace = true
+ra-hash.workspace = true
 stdx.workspace = true
 
 [dev-dependencies]

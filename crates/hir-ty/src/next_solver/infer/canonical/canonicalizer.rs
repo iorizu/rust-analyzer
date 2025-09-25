@@ -5,7 +5,7 @@
 //!
 //! [c]: https://rust-lang.github.io/chalk/book/canonical_queries/canonicalization.html
 
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use rustc_index::Idx;
 use rustc_type_ir::InferTy::{self, FloatVar, IntVar, TyVar};
 use rustc_type_ir::inherent::{Const as _, IntoKind as _, Region as _, SliceLike, Ty as _};

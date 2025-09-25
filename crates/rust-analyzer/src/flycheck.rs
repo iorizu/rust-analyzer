@@ -10,10 +10,9 @@ use std::{
 
 use cargo_metadata::PackageId;
 use crossbeam_channel::{Receiver, Sender, select_biased, unbounded};
-use ide_db::FxHashSet;
 use itertools::Itertools;
 use paths::{AbsPath, AbsPathBuf, Utf8PathBuf};
-use rustc_hash::FxHashMap;
+use ra_hash::{FxHashMap, FxHashSet};
 use serde::Deserialize as _;
 use serde_derive::Deserialize;
 

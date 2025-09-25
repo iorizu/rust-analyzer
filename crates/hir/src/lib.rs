@@ -90,7 +90,7 @@ use hir_ty::{
     traits::FnTrait,
 };
 use itertools::Itertools;
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 use smallvec::SmallVec;
 use span::{AstIdNode, Edition, FileId};
 use stdx::{format_to, impl_from, never, variance::PhantomCovariantLifetime};

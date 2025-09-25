@@ -6,10 +6,11 @@ use hir::{
 };
 use ide_db::text_edit::TextRange;
 use ide_db::{
-    FxHashMap, RootDatabase,
+    RootDatabase,
     defs::Definition,
     search::{FileReference, ReferenceCategory, SearchScope},
 };
+use ra_hash::FxHashMap;
 use syntax::{
     AstNode,
     ast::{self, Rename},

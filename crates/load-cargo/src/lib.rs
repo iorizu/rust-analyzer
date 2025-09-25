@@ -10,13 +10,14 @@ use hir_expand::proc_macro::{
     ProcMacrosBuilder,
 };
 use ide_db::{
-    ChangeWithProcMacros, FxHashMap, RootDatabase,
+    ChangeWithProcMacros, RootDatabase,
     base_db::{CrateGraphBuilder, Env, ProcMacroLoadingError, SourceRoot, SourceRootId},
     prime_caches,
 };
 use itertools::Itertools;
 use proc_macro_api::{MacroDylib, ProcMacroClient};
 use project_model::{CargoConfig, PackageRoot, ProjectManifest, ProjectWorkspace};
+use ra_hash::FxHashMap;
 use span::Span;
 use vfs::{
     AbsPath, AbsPathBuf, VfsPath,

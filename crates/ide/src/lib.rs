@@ -64,13 +64,14 @@ use cfg::CfgOptions;
 use fetch_crates::CrateInfo;
 use hir::{ChangeWithProcMacros, EditionedFileId, crate_def_map, db::HirDatabase, sym};
 use ide_db::{
-    FxHashMap, FxIndexSet, LineIndexDatabase,
+    LineIndexDatabase,
     base_db::{
         CrateOrigin, CrateWorkspaceData, Env, FileSet, RootQueryDb, SourceDatabase, VfsPath,
         salsa::Cancelled,
     },
     prime_caches, symbol_index,
 };
+use ra_hash::{FxHashMap, FxIndexSet};
 use syntax::SourceFile;
 use triomphe::Arc;
 use view_memory_layout::{RecursiveMemoryLayout, view_memory_layout};

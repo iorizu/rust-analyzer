@@ -2,7 +2,6 @@
 
 use std::{cell::OnceCell, collections::hash_map::Entry};
 
-use base_db::FxIndexSet;
 use hir_expand::{
     HirFileId,
     mod_path::PathKind,
@@ -10,6 +9,7 @@ use hir_expand::{
     span_map::{SpanMap, SpanMapRef},
 };
 use la_arena::Arena;
+use ra_hash::FxIndexSet;
 use span::{AstIdMap, FileAstId, SyntaxContext};
 use syntax::{
     AstNode,

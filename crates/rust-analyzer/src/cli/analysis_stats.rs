@@ -34,7 +34,7 @@ use oorandom::Rand32;
 use profile::StopWatch;
 use project_model::{CargoConfig, CfgOverrides, ProjectManifest, ProjectWorkspace, RustLibSource};
 use rayon::prelude::*;
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use rustc_type_ir::inherent::Ty as _;
 use syntax::AstNode;
 use vfs::{AbsPathBuf, Vfs, VfsPath};

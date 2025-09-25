@@ -1,8 +1,8 @@
 [package]
-name = "intern"
+name = "ra-hash"
 version = "0.0.0"
 repository.workspace = true
-description = "Global `Arc`-based object interning infrastructure for rust-analyzer."
+description = "A set of hash-related definitions for rust-analyzer."
 
 authors.workspace = true
 edition.workspace = true
@@ -12,14 +12,9 @@ rust-version.workspace = true
 [lib]
 doctest = false
 
-
 [dependencies]
 dashmap.workspace = true
-hashbrown.workspace = true
-triomphe.workspace = true
+indexmap.workspace = true
+rustc-hash.workspace = true
 
-# local crates
-ra-hash.workspace = true
-
-[lints]
-workspace = true
+# local crates (there should be none)

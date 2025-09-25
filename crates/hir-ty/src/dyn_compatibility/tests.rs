@@ -1,7 +1,7 @@
 use std::ops::ControlFlow;
 
 use hir_def::db::DefDatabase;
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use syntax::ToSmolStr;
 use test_fixture::WithFixture;
 

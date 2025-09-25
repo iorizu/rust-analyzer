@@ -14,22 +14,20 @@ doctest = false
 
 [dependencies]
 la-arena.workspace = true
-dashmap.workspace = true
 salsa.workspace = true
 salsa-macros.workspace = true
 query-group.workspace = true
-rustc-hash.workspace = true
 triomphe.workspace = true
 semver.workspace = true
 tracing.workspace = true
-indexmap.workspace = true
 
 # local deps
 cfg.workspace = true
-syntax.workspace = true
-vfs.workspace = true
-span.workspace = true
 intern.workspace = true
+ra-hash.workspace = true
+syntax.workspace = true
+span.workspace = true
+vfs.workspace = true
 
 [lints]
 workspace = true

@@ -12,7 +12,7 @@ use ide::{
     InlayFieldsToResolve, Query, RangeInfo, ReferenceCategory, Runnable, RunnableKind,
     SingleResolve, SourceChange, TextEdit,
 };
-use ide_db::{FxHashMap, SymbolKind};
+use ide_db::SymbolKind;
 use itertools::Itertools;
 use lsp_server::ErrorCode;
 use lsp_types::{
@@ -26,6 +26,7 @@ use lsp_types::{
 };
 use paths::Utf8PathBuf;
 use project_model::{CargoWorkspace, ManifestPath, ProjectWorkspaceKind, TargetKind};
+use ra_hash::{FxHashMap, fxhash_one};
 use serde_json::json;
 use stdx::{format_to, never};
 use syntax::{TextRange, TextSize};
@@ -1784,12 +1785,7 @@ pub(crate) fn handle_inlay_hints_resolve(
         file_id,
         range,
         hash,
-        |hint| {
-            std::hash::BuildHasher::hash_one(
-                &std::hash::BuildHasherDefault::<ide_db::FxHasher>::default(),
-                hint,
-            )
-        },
+        |hint| fxhash_one(hint),
     )?;
 
     Ok(resolve_hints

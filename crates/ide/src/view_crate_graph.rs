@@ -1,11 +1,12 @@
 use dot::{Id, LabelText};
 use ide_db::base_db::salsa::plumbing::AsId;
 use ide_db::{
-    FxHashMap, RootDatabase,
+    RootDatabase,
     base_db::{
         BuiltCrateData, BuiltDependency, Crate, ExtraCrateData, RootQueryDb, SourceDatabase,
     },
 };
+use ra_hash::FxHashMap;
 
 // Feature: View Crate Graph
 //

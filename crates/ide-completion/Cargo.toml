@@ -23,6 +23,7 @@ smallvec.workspace = true
 # local deps
 base-db.workspace = true
 ide-db.workspace = true
+ra-hash.workspace = true
 stdx.workspace = true
 syntax.workspace = true
 # completions crate should depend only on the top-level `hir` package. if you need

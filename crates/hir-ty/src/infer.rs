@@ -42,11 +42,10 @@ use hir_def::{
     type_ref::{ConstRef, LifetimeRefId, TypeRefId},
 };
 use hir_expand::{mod_path::ModPath, name::Name};
-use indexmap::IndexSet;
 use intern::sym;
 use la_arena::{ArenaMap, Entry};
+use ra_hash::{FxHashMap, FxHashSet, FxIndexSet};
 use rustc_ast_ir::Mutability;
-use rustc_hash::{FxHashMap, FxHashSet};
 use rustc_type_ir::{
     AliasTyKind, Flags, TypeFlags, TypeFoldable, TypeSuperVisitable, TypeVisitable, TypeVisitor,
     inherent::{AdtDef, IntoKind, Region as _, SliceLike, Ty as _},
@@ -795,8 +794,7 @@ pub(crate) struct InferenceContext<'body, 'db> {
     /// The traits in scope, disregarding block modules. This is used for caching purposes.
     traits_in_scope: FxHashSet<TraitId>,
     pub(crate) result: InferenceResult<'db>,
-    tuple_field_accesses_rev:
-        IndexSet<Tys<'db>, std::hash::BuildHasherDefault<rustc_hash::FxHasher>>,
+    tuple_field_accesses_rev: FxIndexSet<Tys<'db>>,
     /// The return type of the function being inferred, the closure or async block if we're
     /// currently within one.
     ///

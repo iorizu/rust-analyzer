@@ -13,7 +13,7 @@ use base_db::{
 use cfg::{CfgAtom, CfgDiff, CfgOptions};
 use intern::{Symbol, sym};
 use paths::{AbsPath, AbsPathBuf, Utf8PathBuf};
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use semver::Version;
 use span::{Edition, FileId};
 use toolchain::{NO_RUSTUP_AUTO_INSTALL_ENV, Tool};

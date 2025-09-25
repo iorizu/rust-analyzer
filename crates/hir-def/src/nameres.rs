@@ -58,7 +58,7 @@ pub mod proc_macro;
 #[cfg(test)]
 mod tests;
 
-use std::ops::Deref;
+use std::{hash::{Hash, Hasher}, ops::Deref};
 
 use base_db::Crate;
 use hir_expand::{
@@ -68,7 +68,7 @@ use hir_expand::{
 use intern::Symbol;
 use itertools::Itertools;
 use la_arena::Arena;
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet, FxIndexMap, fxindexmap};
 use span::{Edition, FileAstId, FileId, ROOT_ERASED_FILE_AST_ID};
 use stdx::format_to;
 use syntax::{AstNode, SmolStr, SyntaxNode, ToSmolStr, ast};
@@ -76,8 +76,8 @@ use triomphe::Arc;
 use tt::TextRange;
 
 use crate::{
-    AstId, BlockId, BlockLoc, CrateRootModuleId, ExternCrateId, FunctionId, FxIndexMap,
-    LocalModuleId, Lookup, MacroExpander, MacroId, ModuleId, ProcMacroId, UseId,
+    AstId, BlockId, BlockLoc, CrateRootModuleId, ExternCrateId, FunctionId, LocalModuleId, Lookup,
+    MacroExpander, MacroId, ModuleId, ProcMacroId, UseId,
     db::DefDatabase,
     item_scope::{BuiltinShadowMode, ItemScope},
     item_tree::TreeId,
@@ -112,8 +112,8 @@ pub struct LocalDefMap {
     extern_prelude: FxIndexMap<Name, (CrateRootModuleId, Option<ExternCrateId>)>,
 }
 
-impl std::hash::Hash for LocalDefMap {
-    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+impl Hash for LocalDefMap {
+    fn hash<H: Hasher>(&self, state: &mut H) {
         let LocalDefMap { extern_prelude } = self;
         extern_prelude.len().hash(state);
         for (name, (crate_root, extern_crate)) in extern_prelude {
@@ -125,8 +125,7 @@ impl std::hash::Hash for LocalDefMap {
 }
 
 impl LocalDefMap {
-    pub(crate) const EMPTY: &Self =
-        &Self { extern_prelude: FxIndexMap::with_hasher(rustc_hash::FxBuildHasher) };
+    pub(crate) const EMPTY: &Self = &Self { extern_prelude: fxindexmap() };
 
     fn shrink_to_fit(&mut self) {
         let Self { extern_prelude } = self;

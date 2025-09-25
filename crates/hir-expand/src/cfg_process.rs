@@ -4,7 +4,7 @@ use std::iter::Peekable;
 use base_db::Crate;
 use cfg::{CfgAtom, CfgExpr};
 use intern::{Symbol, sym};
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 use syntax::{
     AstNode, NodeOrToken, SyntaxElement, SyntaxKind, SyntaxNode, T,
     ast::{self, Attr, HasAttrs, Meta, TokenTree, VariantList},

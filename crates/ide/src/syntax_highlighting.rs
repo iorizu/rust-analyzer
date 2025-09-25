@@ -16,7 +16,8 @@ use std::ops::ControlFlow;
 
 use either::Either;
 use hir::{DefWithBody, EditionedFileId, InFile, InRealFile, MacroKind, Name, Semantics};
-use ide_db::{FxHashMap, FxHashSet, Ranker, RootDatabase, SymbolKind};
+use ide_db::{Ranker, RootDatabase, SymbolKind};
+use ra_hash::{FxHashMap, FxHashSet};
 use syntax::{
     AstNode, AstToken, NodeOrToken,
     SyntaxKind::*,

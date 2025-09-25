@@ -1,7 +1,8 @@
 //! Things related to the Interner in the next-trait-solver.
 #![allow(unused)]
 
-pub use tls_db::{attach_db, attach_db_allow_change, with_attached_db};
+use std::fmt;
+use std::ops::ControlFlow;
 
 use base_db::Crate;
 use chalk_ir::{ProgramClauseImplication, SeparatorTraitRef, Variances};
@@ -13,8 +14,8 @@ use hir_def::{CallableDefId, EnumVariantId, ItemContainerId, StructId, UnionId};
 use intern::sym::non_exhaustive;
 use intern::{Interned, impl_internable, sym};
 use la_arena::Idx;
+use ra_hash::FxHashSet;
 use rustc_abi::{Align, ReprFlags, ReprOptions};
-use rustc_hash::FxHashSet;
 use rustc_index::bit_set::DenseBitSet;
 use rustc_type_ir::elaborate::elaborate;
 use rustc_type_ir::error::TypeError;
@@ -29,8 +30,6 @@ use rustc_type_ir::{
 };
 use salsa::plumbing::AsId;
 use smallvec::{SmallVec, smallvec};
-use std::fmt;
-use std::ops::ControlFlow;
 use syntax::ast::SelfParamKind;
 use triomphe::Arc;
 
@@ -72,6 +71,8 @@ use super::{
     },
 };
 use super::{ClauseKind, SolverDefId, Valtree};
+
+pub use tls_db::{attach_db, attach_db_allow_change, with_attached_db};
 
 #[macro_export]
 #[doc(hidden)]

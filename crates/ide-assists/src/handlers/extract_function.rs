@@ -7,7 +7,7 @@ use hir::{
     TypeInfo, TypeParam,
 };
 use ide_db::{
-    FxIndexSet, RootDatabase,
+    RootDatabase,
     assists::GroupLabel,
     defs::{Definition, NameRefClass},
     famous_defs::FamousDefs,
@@ -20,6 +20,7 @@ use ide_db::{
     },
 };
 use itertools::Itertools;
+use ra_hash::FxIndexSet;
 use syntax::{
     Edition, SyntaxElement,
     SyntaxKind::{self, COMMENT},

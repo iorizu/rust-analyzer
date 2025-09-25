@@ -9,11 +9,12 @@ use hir::{
     Semantics, Trait,
 };
 use ide_db::{
-    FilePosition, FxIndexMap,
+    FilePosition,
     active_parameter::{callable_for_arg_list, generic_def_for_node},
     documentation::{Documentation, HasDocs},
 };
 use itertools::Itertools;
+use ra_hash::FxIndexMap;
 use span::Edition;
 use stdx::format_to;
 use syntax::{

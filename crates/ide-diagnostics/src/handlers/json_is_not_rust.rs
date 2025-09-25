@@ -4,12 +4,13 @@
 use hir::{FindPathConfig, PathResolution, Semantics};
 use ide_db::text_edit::TextEdit;
 use ide_db::{
-    EditionedFileId, FileRange, FxHashMap, RootDatabase,
+    EditionedFileId, FileRange, RootDatabase,
     helpers::mod_path_to_ast,
     imports::insert_use::{ImportScope, insert_use},
     source_change::SourceChangeBuilder,
 };
 use itertools::Itertools;
+use ra_hash::FxHashMap;
 use stdx::{format_to, never};
 use syntax::{
     Edition, SyntaxKind, SyntaxNode,

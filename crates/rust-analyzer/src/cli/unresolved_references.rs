@@ -2,10 +2,11 @@
 use hir::{AnyDiagnostic, Crate, Module, Semantics, db::HirDatabase, sym};
 use ide::{AnalysisHost, RootDatabase, TextRange};
 use ide_db::{
-    EditionedFileId, FxHashSet, LineIndexDatabase as _, base_db::SourceDatabase, defs::NameRefClass,
+    EditionedFileId, LineIndexDatabase as _, base_db::SourceDatabase, defs::NameRefClass,
 };
 use load_cargo::{LoadCargoConfig, ProcMacroServerChoice, load_workspace_at};
 use parser::SyntaxKind;
+use ra_hash::FxHashSet;
 use syntax::{AstNode, WalkEvent, ast};
 use vfs::FileId;
 

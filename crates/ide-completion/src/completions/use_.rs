@@ -1,7 +1,8 @@
 //! Completion for use trees
 
 use hir::ScopeDef;
-use ide_db::{FxHashSet, SymbolKind};
+use ide_db::SymbolKind;
+use ra_hash::FxHashSet;
 use syntax::{AstNode, ast, format_smolstr};
 
 use crate::{

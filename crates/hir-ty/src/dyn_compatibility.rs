@@ -8,7 +8,7 @@ use hir_def::{
     lang_item::LangItem, signatures::TraitFlags,
 };
 use intern::Symbol;
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 use rustc_type_ir::{
     AliasTyKind, ClauseKind, PredicatePolarity, TypeSuperVisitable as _, TypeVisitable as _,
     Upcast, elaborate,

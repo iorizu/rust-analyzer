@@ -2,12 +2,13 @@ use std::ops::RangeInclusive;
 
 use hir::{HasSource, ModuleSource};
 use ide_db::{
-    FileId, FxHashMap, FxHashSet,
+    FileId,
     assists::AssistId,
     defs::{Definition, NameClass, NameRefClass},
     search::{FileReference, SearchScope},
 };
 use itertools::Itertools;
+use ra_hash::{FxHashMap, FxHashSet};
 use smallvec::SmallVec;
 use syntax::{
     AstNode,

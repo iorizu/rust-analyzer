@@ -11,12 +11,13 @@ use hir::{
     db::DefDatabase,
 };
 use ide_db::{
-    FileRange, FxIndexSet, Ranker, RootDatabase,
+    FileRange, Ranker, RootDatabase,
     defs::{Definition, IdentClass, NameRefClass, OperatorClass},
     famous_defs::FamousDefs,
     helpers::pick_best_token,
 };
 use itertools::{Itertools, multizip};
+use ra_hash::FxIndexSet;
 use span::Edition;
 use syntax::{
     AstNode,

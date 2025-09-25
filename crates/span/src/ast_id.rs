@@ -23,12 +23,12 @@
 use std::{
     any::type_name,
     fmt,
-    hash::{BuildHasher, Hash, Hasher},
+    hash::{Hash, Hasher},
     marker::PhantomData,
 };
 
 use la_arena::{Arena, Idx, RawIdx};
-use rustc_hash::{FxBuildHasher, FxHashMap};
+use ra_hash::{FxHashMap, fxhash_one};
 use syntax::{
     AstNode, AstPtr, SyntaxKind, SyntaxNode, SyntaxNodePtr,
     ast::{self, HasName},
@@ -402,7 +402,7 @@ struct ErasedAstIdNextIndexMap(FxHashMap<(ErasedFileAstIdKind, u16), u32>);
 impl ErasedAstIdNextIndexMap {
     #[inline]
     fn new_id(&mut self, kind: ErasedFileAstIdKind, data: impl Hash) -> ErasedFileAstId {
-        let hash = FxBuildHasher.hash_one(&data);
+        let hash = fxhash_one(&data);
         let initial_hash = u16_hash(hash);
         // Even though 2^INDEX_BITS=2048 items with the same hash seems like a lot,
         // it could happen with macro calls or `use`s in macro-generated files. So we want
@@ -768,12 +768,12 @@ impl AstIdMap {
 
 #[inline]
 fn hash_ptr(ptr: &SyntaxNodePtr) -> u64 {
-    FxBuildHasher.hash_one(ptr)
+    fxhash_one(ptr)
 }
 
 #[inline]
 fn hash_ast_id(ptr: &ErasedFileAstId) -> u64 {
-    FxBuildHasher.hash_one(ptr)
+    fxhash_one(ptr)
 }
 
 #[cfg(test)]

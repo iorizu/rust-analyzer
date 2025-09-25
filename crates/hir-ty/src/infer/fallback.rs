@@ -5,7 +5,7 @@ use petgraph::{
     Graph,
     visit::{Dfs, Walker},
 };
-use rustc_hash::{FxBuildHasher, FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet, fxhashmap_with_capacity};
 use rustc_type_ir::{
     TyVid,
     inherent::{IntoKind, Ty as _},
@@ -320,8 +320,7 @@ impl<'db> InferenceContext<'_, 'db> {
         // For each diverging variable, figure out whether it can
         // reach a member of N. If so, it falls back to `()`. Else
         // `!`.
-        let mut diverging_fallback =
-            FxHashMap::with_capacity_and_hasher(diverging_vids.len(), FxBuildHasher);
+        let mut diverging_fallback = fxhashmap_with_capacity(diverging_vids.len());
 
         for &diverging_vid in &diverging_vids {
             let diverging_ty = Ty::new_var(self.interner(), diverging_vid);

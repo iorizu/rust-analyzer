@@ -19,10 +19,10 @@ crossbeam-channel.workspace = true
 notify = "8.0.0"
 rayon = "1.10.0"
 
+paths.workspace = true
+ra-hash.workspace = true
 stdx.workspace = true
 vfs.workspace = true
-paths.workspace = true
-rustc-hash.workspace = true
 
 [lints]
 workspace = true

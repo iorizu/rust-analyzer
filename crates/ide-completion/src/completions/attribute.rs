@@ -5,13 +5,14 @@
 use std::sync::LazyLock;
 
 use ide_db::{
-    FxHashMap, SymbolKind,
+    SymbolKind,
     generated::lints::{
         CLIPPY_LINT_GROUPS, CLIPPY_LINTS, DEFAULT_LINTS, FEATURES, Lint, RUSTDOC_LINTS,
     },
     syntax_helpers::node_ext::parse_tt_as_comma_sep_paths,
 };
 use itertools::Itertools;
+use ra_hash::FxHashMap;
 use syntax::{
     AstNode, Edition, SyntaxKind, T,
     ast::{self, AttrKind},

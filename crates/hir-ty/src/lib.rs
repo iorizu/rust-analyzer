@@ -66,11 +66,10 @@ use chalk_ir::{
 };
 use hir_def::{CallableDefId, GeneralConstId, TypeOrConstParamId, hir::ExprId, type_ref::Rawness};
 use hir_expand::name::Name;
-use indexmap::{IndexMap, map::Entry};
 use intern::{Symbol, sym};
 use la_arena::{Arena, Idx};
 use mir::{MirEvalError, VTableMap};
-use rustc_hash::{FxBuildHasher, FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet, FxIndexMap, IndexEntry as Entry, fxhashmap_with_capacity};
 use rustc_type_ir::{
     UpcastFrom,
     inherent::{SliceLike, Ty as _},
@@ -213,7 +212,7 @@ pub enum MemoryMap<'db> {
 
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct ComplexMemoryMap<'db> {
-    memory: IndexMap<usize, Box<[u8]>, FxBuildHasher>,
+    memory: FxIndexMap<usize, Box<[u8]>>,
     vtable: VTableMap<'db>,
 }
 
@@ -259,7 +258,7 @@ impl<'db> MemoryMap<'db> {
         match self {
             MemoryMap::Empty => Ok(Default::default()),
             MemoryMap::Simple(m) => transform((&0, m)).map(|(addr, val)| {
-                let mut map = FxHashMap::with_capacity_and_hasher(1, rustc_hash::FxBuildHasher);
+                let mut map = fxhashmap_with_capacity(1);
                 map.insert(addr, val);
                 map
             }),

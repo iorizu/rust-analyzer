@@ -8,9 +8,9 @@ use hir::{
     ClosureStyle, DisplayTarget, EditionedFileId, HasVisibility, HirDisplay, HirDisplayError,
     HirWrite, InRealFile, ModuleDef, ModuleDefId, Semantics, sym,
 };
-use ide_db::{FileRange, RootDatabase, famous_defs::FamousDefs, text_edit::TextEditBuilder};
-use ide_db::{FxHashSet, text_edit::TextEdit};
+use ide_db::{famous_defs::FamousDefs, text_edit::{TextEdit, TextEditBuilder}, FileRange, RootDatabase};
 use itertools::Itertools;
+use ra_hash::FxHashSet;
 use smallvec::{SmallVec, smallvec};
 use stdx::never;
 use syntax::{

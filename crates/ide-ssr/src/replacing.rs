@@ -1,9 +1,9 @@
 //! Code for applying replacement templates for matches that have previously been found.
 
 use ide_db::text_edit::TextEdit;
-use ide_db::{FxHashMap, FxHashSet};
 use itertools::Itertools;
 use parser::Edition;
+use ra_hash::{FxHashMap, FxHashSet};
 use syntax::{
     SyntaxElement, SyntaxKind, SyntaxNode, SyntaxToken, TextRange, TextSize,
     ast::{self, AstNode, AstToken},

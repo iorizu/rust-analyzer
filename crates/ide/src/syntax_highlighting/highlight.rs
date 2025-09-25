@@ -5,12 +5,12 @@ use std::ops::ControlFlow;
 use either::Either;
 use hir::{AsAssocItem, HasVisibility, Semantics};
 use ide_db::{
-    FxHashMap, RootDatabase, SymbolKind,
+    RootDatabase, SymbolKind,
     defs::{Definition, IdentClass, NameClass, NameRefClass},
     syntax_helpers::node_ext::walk_pat,
 };
+use ra_hash::{FxHashMap, fxhash_one};
 use span::Edition;
-use stdx::hash_once;
 use syntax::{
     AstNode, AstPtr, AstToken, NodeOrToken,
     SyntaxKind::{self, *},
@@ -472,7 +472,7 @@ fn highlight_name(
 }
 
 fn calc_binding_hash(name: &hir::Name, shadow_count: u32) -> u64 {
-    hash_once::<ide_db::FxHasher>((name.as_str(), shadow_count))
+    fxhash_one((name.as_str(), shadow_count))
 }
 
 pub(super) fn highlight_def(

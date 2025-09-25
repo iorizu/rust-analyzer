@@ -3,7 +3,7 @@
 
 use crate::flycheck::{Applicability, DiagnosticLevel, DiagnosticSpan};
 use itertools::Itertools;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use stdx::format_to;
 use vfs::{AbsPath, AbsPathBuf};
 

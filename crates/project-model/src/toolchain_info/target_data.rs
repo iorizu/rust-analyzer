@@ -2,7 +2,7 @@
 
 use anyhow::Context;
 use base_db::target;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use serde_derive::Deserialize;
 use toolchain::Tool;
 

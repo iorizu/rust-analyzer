@@ -20,6 +20,7 @@ serde_json.workspace = true
 tracing.workspace = true
 
 # local deps
+ra-hash.workspace = true
 stdx.workspace = true
 syntax.workspace = true
 cfg.workspace = true

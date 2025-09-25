@@ -2,7 +2,6 @@ use either::Either;
 use hir::ModuleDef;
 use ide_db::text_edit::TextRange;
 use ide_db::{
-    FxHashSet,
     assists::AssistId,
     defs::Definition,
     helpers::mod_path_to_ast,
@@ -11,6 +10,7 @@ use ide_db::{
     source_change::SourceChangeBuilder,
 };
 use itertools::Itertools;
+use ra_hash::FxHashSet;
 use syntax::{
     AstNode, NodeOrToken, SyntaxKind, SyntaxNode, T,
     ast::{self, HasName, edit::IndentLevel, edit_in_place::Indent, make},

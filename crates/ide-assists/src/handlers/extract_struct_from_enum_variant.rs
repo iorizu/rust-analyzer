@@ -3,7 +3,7 @@ use std::iter;
 use either::Either;
 use hir::{HasCrate, Module, ModuleDef, Name, Variant};
 use ide_db::{
-    FxHashSet, RootDatabase,
+    RootDatabase,
     defs::Definition,
     helpers::mod_path_to_ast,
     imports::insert_use::{ImportScope, InsertUseConfig, insert_use},
@@ -11,6 +11,7 @@ use ide_db::{
     search::FileReference,
 };
 use itertools::Itertools;
+use ra_hash::FxHashSet;
 use syntax::{
     Edition, SyntaxElement,
     SyntaxKind::*,

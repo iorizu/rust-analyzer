@@ -13,7 +13,7 @@ use hir_def::{
 };
 use intern::sym;
 use itertools::Itertools;
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 use rustc_pattern_analysis::constructor::Constructor;
 use syntax::{
     AstNode,

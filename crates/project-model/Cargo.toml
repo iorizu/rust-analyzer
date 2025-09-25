@@ -15,7 +15,6 @@ doctest = false
 [dependencies]
 anyhow.workspace = true
 cargo_metadata.workspace = true
-rustc-hash.workspace = true
 semver.workspace = true
 serde_json.workspace = true
 serde.workspace = true
@@ -32,6 +31,7 @@ intern.workspace = true
 span.workspace = true
 cfg.workspace = true
 paths = { workspace = true, features = ["serde1"] }
+ra-hash.workspace = true
 stdx.workspace = true
 toolchain.workspace = true
 

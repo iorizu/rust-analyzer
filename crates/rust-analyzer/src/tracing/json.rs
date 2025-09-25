@@ -10,7 +10,7 @@
 
 use std::{io::Write as _, marker::PhantomData, time::Instant};
 
-use ide_db::FxHashSet;
+use ra_hash::FxHashSet;
 use tracing::{
     Event, Subscriber,
     span::{Attributes, Id},

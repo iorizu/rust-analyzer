@@ -13,14 +13,12 @@ rust-version.workspace = true
 doctest = false
 
 [dependencies]
-rustc-hash.workspace = true
 either.workspace = true
 arrayvec.workspace = true
 itertools.workspace = true
 smallvec.workspace = true
 tracing.workspace = true
 triomphe.workspace = true
-indexmap.workspace = true
 
 ra-ap-rustc_type_ir.workspace = true
 
@@ -31,6 +29,7 @@ hir-def.workspace = true
 hir-expand.workspace = true
 hir-ty.workspace = true
 intern.workspace = true
+ra-hash.workspace = true
 stdx.workspace = true
 syntax.workspace = true
 tt.workspace = true

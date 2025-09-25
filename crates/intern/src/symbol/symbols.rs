@@ -1,10 +1,10 @@
 //! Module defining all known symbols required by the rest of rust-analyzer.
 #![allow(non_upper_case_globals)]
 
-use std::hash::{BuildHasher, BuildHasherDefault};
+use std::hash::BuildHasher as _;
 
-use dashmap::{DashMap, SharedValue};
-use rustc_hash::FxHasher;
+use dashmap::SharedValue;
+use ra_hash::{FxBuildHasher, FxDashMap};
 
 use crate::{Symbol, symbol::TaggedArcPtr};
 
@@ -25,8 +25,9 @@ macro_rules! define_symbols {
         )*
 
 
-        pub(super) fn prefill() -> DashMap<Symbol, (), BuildHasherDefault<FxHasher>> {
-            let mut dashmap_ = <DashMap<Symbol, (), BuildHasherDefault<FxHasher>>>::with_hasher(BuildHasherDefault::default());
+        pub(super) fn prefill() -> FxDashMap<Symbol, ()> {
+            // FIXME: Use FxDashSet instead
+            let mut dashmap_ = <FxDashMap<Symbol, ()>>::with_hasher(FxBuildHasher::default());
 
             let hasher_ = dashmap_.hasher().clone();
             let hash_one = |it_: &str| hasher_.hash_one(it_);

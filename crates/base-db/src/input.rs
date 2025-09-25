@@ -7,21 +7,20 @@
 //! actual IO is done and lowered to input.
 
 use std::error::Error;
-use std::hash::BuildHasherDefault;
 use std::{fmt, mem, ops};
 
 use cfg::{CfgOptions, HashableCfgOptions};
-use dashmap::DashMap;
-use dashmap::mapref::entry::Entry;
 use intern::Symbol;
 use la_arena::{Arena, Idx, RawIdx};
-use rustc_hash::{FxBuildHasher, FxHashMap, FxHashSet, FxHasher};
+use ra_hash::{
+    DashEntry as Entry, FxDashMap, FxHashMap, FxHashSet, FxIndexSet, fxindexset_with_capacity,
+};
 use salsa::{Durability, Setter};
 use span::Edition;
 use triomphe::Arc;
 use vfs::{AbsPathBuf, AnchoredPath, FileId, VfsPath, file_set::FileSet};
 
-use crate::{CrateWorkspaceData, EditionedFileId, FxIndexSet, RootQueryDb};
+use crate::{CrateWorkspaceData, EditionedFileId, RootQueryDb};
 
 pub type ProcMacroPaths =
     FxHashMap<CrateBuilderId, Result<(String, AbsPathBuf), ProcMacroLoadingError>>;
@@ -462,7 +461,7 @@ pub struct Crate {
 
 /// The mapping from [`UniqueCrateData`] to their [`Crate`] input.
 #[derive(Debug, Default)]
-pub struct CratesMap(DashMap<UniqueCrateData, Crate, BuildHasherDefault<FxHasher>>);
+pub struct CratesMap(FxDashMap<UniqueCrateData, Crate>);
 
 impl CrateGraphBuilder {
     pub fn add_crate_root(
@@ -525,7 +524,7 @@ impl CrateGraphBuilder {
     pub fn set_in_db(self, db: &mut dyn RootQueryDb) -> CratesIdMap {
         // For some reason in some repositories we have duplicate crates, so we use a set and not `Vec`.
         // We use an `IndexSet` because the list needs to be topologically sorted.
-        let mut all_crates = FxIndexSet::with_capacity_and_hasher(self.arena.len(), FxBuildHasher);
+        let mut all_crates = fxindexset_with_capacity(self.arena.len());
         let mut visited = FxHashMap::default();
         let mut visited_root_files = FxHashSet::default();
 

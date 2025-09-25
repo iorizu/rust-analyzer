@@ -23,7 +23,7 @@ use parking_lot::{
 };
 use proc_macro_api::ProcMacroClient;
 use project_model::{ManifestPath, ProjectWorkspace, ProjectWorkspaceKind, WorkspaceBuildScripts};
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use stdx::thread;
 use tracing::{Level, span, trace};
 use triomphe::Arc;

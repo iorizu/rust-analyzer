@@ -1,7 +1,7 @@
 //! Lowering of inline assembly.
 use hir_expand::name::Name;
 use intern::Symbol;
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use syntax::{
     AstNode, AstPtr, AstToken, T,
     ast::{self, HasName, IsString},

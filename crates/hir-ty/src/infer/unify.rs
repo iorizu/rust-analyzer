@@ -7,7 +7,7 @@ use hir_def::GenericParamId;
 use hir_def::{AdtId, lang_item::LangItem};
 use hir_expand::name::Name;
 use intern::sym;
-use rustc_hash::{FxHashMap, FxHashSet};
+use ra_hash::{FxHashMap, FxHashSet};
 use rustc_type_ir::{DebruijnIndex, InferConst, InferTy, RegionVid};
 use rustc_type_ir::{
     TyVid, TypeFoldable, TypeFolder, TypeSuperFoldable, TypeVisitableExt, UpcastFrom,

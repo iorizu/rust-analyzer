@@ -1,9 +1,10 @@
 use expect_test::{Expect, expect};
 use hir::{FilePosition, FileRange};
 use ide_db::{
-    EditionedFileId, FxHashSet,
+    EditionedFileId,
     base_db::{SourceDatabase, salsa::Durability},
 };
+use ra_hash::FxHashSet;
 use test_utils::RangeOrOffset;
 use triomphe::Arc;
 

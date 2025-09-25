@@ -15,8 +15,8 @@ use hir_def::{
 };
 use hir_expand::name::Name;
 use intern::sym;
+use ra_hash::{FxHashMap, FxHashSet};
 use rustc_ast_ir::Mutability;
-use rustc_hash::{FxHashMap, FxHashSet};
 use rustc_type_ir::{
     FloatTy, IntTy, UintTy,
     inherent::{

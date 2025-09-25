@@ -1,7 +1,7 @@
 //! This module add real world mbe example for benchmark tests
 
 use intern::Symbol;
-use rustc_hash::FxHashMap;
+use ra_hash::FxHashMap;
 use span::{Edition, Span};
 use stdx::itertools::Itertools;
 use syntax::{

@@ -73,6 +73,7 @@ use hir_expand::{
 };
 use la_arena::Idx;
 use nameres::DefMap;
+use ra_hash::FxIndexMap;
 use span::{AstIdNode, Edition, FileAstId, SyntaxContext};
 use stdx::impl_from;
 use syntax::{AstNode, ast};
@@ -94,7 +95,6 @@ use crate::{
     signatures::{EnumVariants, InactiveEnumVariantCode, VariantFields},
 };
 
-type FxIndexMap<K, V> = indexmap::IndexMap<K, V, rustc_hash::FxBuildHasher>;
 /// A wrapper around three booleans
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Copy)]
 pub struct FindPathConfig {

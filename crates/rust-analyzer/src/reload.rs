@@ -16,15 +16,13 @@
 use std::{iter, mem};
 
 use hir::{ChangeWithProcMacros, ProcMacrosBuilder, db::DefDatabase};
-use ide_db::{
-    FxHashMap,
-    base_db::{CrateGraphBuilder, ProcMacroLoadingError, ProcMacroPaths, salsa::Durability},
-};
+use ide_db::base_db::{CrateGraphBuilder, ProcMacroLoadingError, ProcMacroPaths, salsa::Durability};
 use itertools::Itertools;
 use load_cargo::{ProjectFolders, load_proc_macro};
 use lsp_types::FileSystemWatcher;
 use proc_macro_api::ProcMacroClient;
 use project_model::{ManifestPath, ProjectWorkspace, ProjectWorkspaceKind, WorkspaceBuildScripts};
+use ra_hash::FxHashMap;
 use stdx::{format_to, thread::ThreadIntent};
 use triomphe::Arc;
 use vfs::{AbsPath, AbsPathBuf, ChangeKind};

@@ -13,12 +13,12 @@ use hir_def::GenericParamId;
 use hir_def::lang_item::LangItem;
 use intern::Symbol;
 use opaque_types::{OpaqueHiddenType, OpaqueTypeStorage};
+use ra_hash::{FxHashMap, FxHashSet};
 use region_constraints::{
     GenericKind, RegionConstraintCollector, RegionConstraintStorage, UndoLog, VarInfos, VerifyBound,
 };
 pub use relate::StructurallyRelateAliases;
 pub use relate::combine::PredicateEmittingRelation;
-use rustc_hash::{FxHashMap, FxHashSet};
 use rustc_next_trait_solver::solve::SolverDelegateEvalExt;
 use rustc_pattern_analysis::Captures;
 use rustc_type_ir::error::{ExpectedFound, TypeError};

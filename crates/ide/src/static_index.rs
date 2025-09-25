@@ -4,12 +4,13 @@
 use arrayvec::ArrayVec;
 use hir::{Crate, Module, Semantics, db::HirDatabase};
 use ide_db::{
-    FileId, FileRange, FxHashMap, FxHashSet, RootDatabase,
+    FileId, FileRange, RootDatabase,
     base_db::{RootQueryDb, SourceDatabase, VfsPath},
     defs::{Definition, IdentClass},
     documentation::Documentation,
     famous_defs::FamousDefs,
 };
+use ra_hash::{FxHashMap, FxHashSet};
 use span::Edition;
 use syntax::{AstNode, SyntaxKind::*, SyntaxNode, SyntaxToken, T, TextRange};
 
@@ -333,7 +334,8 @@ impl StaticIndex<'_> {
 #[cfg(test)]
 mod tests {
     use crate::{StaticIndex, fixture};
-    use ide_db::{FileRange, FxHashMap, FxHashSet, base_db::VfsPath};
+    use ide_db::{FileRange, base_db::VfsPath};
+    use ra_hash::{FxHashMap, FxHashSet};
     use syntax::TextSize;
 
     use super::VendoredLibrariesConfig;

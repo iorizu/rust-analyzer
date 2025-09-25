@@ -4,7 +4,7 @@ use std::{any::TypeId, mem, str::FromStr, sync};
 use base_db::target::TargetData;
 use base_db::{
     Crate, CrateDisplayName, CrateGraphBuilder, CrateName, CrateOrigin, CrateWorkspaceData,
-    DependencyBuilder, Env, FileChange, FileSet, FxIndexMap, LangCrateOrigin, SourceDatabase,
+    DependencyBuilder, Env, FileChange, FileSet, LangCrateOrigin, SourceDatabase,
     SourceRoot, Version, VfsPath, salsa,
 };
 use cfg::CfgOptions;
@@ -21,6 +21,7 @@ use hir_expand::{
 };
 use intern::{Symbol, sym};
 use paths::AbsPathBuf;
+use ra_hash::FxIndexMap;
 use span::{Edition, FileId, Span};
 use stdx::itertools::Itertools;
 use test_utils::{

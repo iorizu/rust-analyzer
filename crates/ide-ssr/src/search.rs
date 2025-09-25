@@ -6,10 +6,11 @@ use crate::{
 };
 use hir::FileRange;
 use ide_db::{
-    EditionedFileId, FileId, FxHashSet,
+    EditionedFileId, FileId,
     defs::Definition,
     search::{SearchScope, UsageSearchResult},
 };
+use ra_hash::FxHashSet;
 use syntax::{AstNode, SyntaxKind, SyntaxNode, ast};
 
 /// A cache for the results of find_usages. This is for when we have multiple patterns that have the

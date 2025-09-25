@@ -44,7 +44,10 @@ pub mod loader;
 mod path_interner;
 mod vfs_path;
 
-use std::{fmt, hash::BuildHasherDefault, mem};
+use std::{fmt, mem};
+
+use ra_hash::{FxIndexMap, IndexEntry as Entry, fxhash_one};
+use tracing::{Level, span};
 
 use crate::path_interner::PathInterner;
 
@@ -52,12 +55,7 @@ pub use crate::{
     anchored_path::{AnchoredPath, AnchoredPathBuf},
     vfs_path::VfsPath,
 };
-use indexmap::{IndexMap, map::Entry};
 pub use paths::{AbsPath, AbsPathBuf};
-
-use rustc_hash::FxHasher;
-use stdx::hash_once;
-use tracing::{Level, span};
 
 /// Handle to a file in [`Vfs`]
 ///
@@ -91,7 +89,7 @@ impl nohash_hasher::IsEnabled for FileId {}
 pub struct Vfs {
     interner: PathInterner,
     data: Vec<FileState>,
-    changes: IndexMap<FileId, ChangedFile, BuildHasherDefault<FxHasher>>,
+    changes: FxIndexMap<FileId, ChangedFile>,
 }
 
 #[derive(Copy, Clone, Debug, PartialEq, PartialOrd)]
@@ -220,12 +218,12 @@ impl Vfs {
         let change = match (state, contents) {
             (FileState::Deleted, None) => return false,
             (FileState::Deleted, Some(v)) => {
-                let hash = hash_once::<FxHasher>(&*v);
+                let hash = fxhash_one(&*v);
                 Change::Create(v, hash)
             }
             (FileState::Exists(_), None) => Change::Delete,
             (FileState::Exists(hash), Some(v)) => {
-                let new_hash = hash_once::<FxHasher>(&*v);
+                let new_hash = fxhash_one(&*v);
                 if new_hash == hash {
                     return false;
                 }
@@ -281,7 +279,7 @@ impl Vfs {
     }
 
     /// Drain and returns all the changes in the `Vfs`.
-    pub fn take_changes(&mut self) -> IndexMap<FileId, ChangedFile, BuildHasherDefault<FxHasher>> {
+    pub fn take_changes(&mut self) -> FxIndexMap<FileId, ChangedFile> {
         mem::take(&mut self.changes)
     }
 

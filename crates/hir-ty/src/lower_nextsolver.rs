@@ -41,8 +41,8 @@ use hir_expand::name::Name;
 use intern::{Symbol, sym};
 use la_arena::{Arena, ArenaMap, Idx};
 use path::{PathDiagnosticCallback, PathLoweringContext, builtin};
+use ra_hash::FxHashSet;
 use rustc_ast_ir::Mutability;
-use rustc_hash::FxHashSet;
 use rustc_pattern_analysis::Captures;
 use rustc_type_ir::{
     AliasTyKind, ConstKind, DebruijnIndex, ExistentialPredicate, ExistentialProjection,

@@ -61,12 +61,12 @@ use hir::{
 use triomphe::Arc;
 
 use crate::{line_index::LineIndex, symbol_index::SymbolsDatabase};
-pub use rustc_hash::{FxHashMap, FxHashSet, FxHasher};
+use ra_hash::FxHashMap;
 
 pub use ::line_index;
 
 /// `base_db` is normally also needed in places where `ide_db` is used, so this re-export is for convenience.
-pub use base_db::{self, FxIndexMap, FxIndexSet};
+pub use base_db::{self};
 pub use span::{self, FileId};
 
 pub type FilePosition = FilePositionWrapper<FileId>;

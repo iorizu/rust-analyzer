@@ -2,7 +2,7 @@
 
 use base_db::SourceRootId;
 use profile::Bytes;
-use rustc_hash::FxHashSet;
+use ra_hash::FxHashSet;
 use salsa::{Database as _, Durability};
 use triomphe::Arc;
 

@@ -1,6 +1,6 @@
 //! Advertises the capabilities of the LSP Server.
 use ide::{CompletionFieldsToResolve, InlayFieldsToResolve};
-use ide_db::{FxHashSet, line_index::WideEncoding};
+use ide_db::{line_index::WideEncoding};
 use lsp_types::{
     CallHierarchyServerCapability, CodeActionKind, CodeActionOptions, CodeActionProviderCapability,
     CodeLensOptions, CompletionOptions, CompletionOptionsCompletionItem, DeclarationCapability,
@@ -14,6 +14,7 @@ use lsp_types::{
     WorkDoneProgressOptions, WorkspaceFileOperationsServerCapabilities,
     WorkspaceFoldersServerCapabilities, WorkspaceServerCapabilities,
 };
+use ra_hash::FxHashSet;
 use serde_json::json;
 
 use crate::{

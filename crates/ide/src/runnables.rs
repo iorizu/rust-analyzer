@@ -9,7 +9,7 @@ use hir::{
 };
 use ide_assists::utils::{has_test_related_attribute, test_related_attribute_syn};
 use ide_db::{
-    FilePosition, FxHashMap, FxIndexMap, FxIndexSet, RootDatabase, SymbolKind,
+    FilePosition, RootDatabase, SymbolKind,
     base_db::RootQueryDb,
     defs::Definition,
     documentation::docs_from_attrs,
@@ -17,6 +17,7 @@ use ide_db::{
     search::{FileReferenceNode, SearchScope},
 };
 use itertools::Itertools;
+use ra_hash::{FxHashMap, FxIndexMap, FxIndexSet};
 use smallvec::SmallVec;
 use span::{Edition, TextSize};
 use stdx::format_to;

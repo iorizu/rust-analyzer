@@ -20,6 +20,7 @@ itertools.workspace = true
 hir.workspace = true
 ide-db.workspace = true
 parser.workspace = true
+ra-hash.workspace = true
 syntax.workspace = true
 
 [dev-dependencies]
